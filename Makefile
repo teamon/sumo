@@ -3,7 +3,8 @@ CLOCK       = 8000000
 PROGRAMMER  = -c stk500v2 -P avrdoper
 OBJECTS     = main.o engine.o queue.o
 
-SIM_OBJECTS = $(patsubst %,out/sim/%,$(OBJECTS))
+SO = $(OBJECTS) socket/Socket.o socket/ClientSocket.o
+SIM_OBJECTS = $(patsubst %,out/sim/%,$(SO))
 AVR_OBJECTS = $(patsubst %,out/avr/%,$(OBJECTS))
 
 FUSES       = -U hfuse:w:0xd9:m -U lfuse:w:0x24:m
@@ -37,7 +38,10 @@ fuse:
 
 
 # ------ SIM ------
-sim: main
+sim: mkdirs main
+
+mkdirs:
+	mkdir -p out/sim/socket
 
 out/sim/%.o : src/%.cpp
 	$(CC) -c $< -o $@
