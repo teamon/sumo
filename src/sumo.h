@@ -3,9 +3,13 @@
 
 #ifdef AVR
 	#include <avr/io.h>
+	#include <util/delay.h>
 	#include <stdlib.h>
 #else
 	#include <iostream>
+	
+	#define _delay_ms(x) usleep(x)
+	void simulate();
 #endif
 
 #include "engine.h"
@@ -22,6 +26,8 @@
 	|-----------------------|
 
 */
+
+#define ITERATION_TIME 100000
 
 #define ENGINE_NUM 2
 #define ENGINE_LEFT 0
