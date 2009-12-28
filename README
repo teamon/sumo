@@ -1,0 +1,5 @@
+Sumo Robot Software
+
+make sim - compile for SumoSim
+make avr - compile for ATmega
+make flash - program microcontroller
