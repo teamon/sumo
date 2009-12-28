@@ -4,11 +4,15 @@
 	#include <iostream>
 #endif
 
+#include "sumo.h"
+#include "engine.h"
+
+// global variables
+
+Engine engine[2];
+
 
 int main(void)
 {
-	for(;;){
-      
-	}
 	return 0;
 }
