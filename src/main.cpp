@@ -1,12 +1,21 @@
 #include "sumo.h"
-#include "engine.h"
 
 // global variables
+Engine engine[ENGINE_NUM];
+char ground;
 
-Engine engine[2];
+void setup(){
+	// initialize engines
+	engine[ENGINE_LEFT] = Engine();
+	engine[ENGINE_RIGHT] = Engine();
+	
+	// initialize ground sensors
+	ground = 0;
+}
 
 
-int main(void)
-{
+int main(void){
+	setup();
+	
 	return 0;
 }

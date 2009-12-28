@@ -3,7 +3,7 @@ CLOCK       = 8000000
 PROGRAMMER  = -c stk500v2 -P avrdoper
 OBJECTS     = main.o engine.o queue.o
 
-SO = $(OBJECTS) socket/Socket.o socket/ClientSocket.o
+SO = $(OBJECTS) socket/Socket.o socket/ClientSocket.o simulator.o
 SIM_OBJECTS = $(patsubst %,out/sim/%,$(SO))
 AVR_OBJECTS = $(patsubst %,out/avr/%,$(OBJECTS))
 

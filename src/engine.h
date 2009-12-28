@@ -1,5 +1,5 @@
-#ifndef MOTOR_H_
-#define MOTOR_H_
+#ifndef ENGINE_H_
+#define ENGINE_H_
 
 class Engine {
 public:
