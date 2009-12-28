@@ -1,6 +1,11 @@
 #ifndef SUMO_H_
 #define SUMO_H_
 
-#define abs(x) ((x) < 0 ? -(x) : (x))
+#ifdef AVR
+	#include <avr/io.h>
+	#include <stdlib.h>
+#else
+	#include <iostream>
+#endif
 
 #endif

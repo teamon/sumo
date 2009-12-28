@@ -1,9 +1,3 @@
-#ifdef AVR
-	#include <avr/io.h>
-#else
-	#include <iostream>
-#endif
-
 #include "sumo.h"
 #include "engine.h"
 

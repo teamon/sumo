@@ -1,7 +1,7 @@
 DEVICE      = atmega8
 CLOCK       = 8000000
 PROGRAMMER  = -c stk500v2 -P avrdoper
-OBJECTS     = main.o engine.o
+OBJECTS     = main.o engine.o queue.o
 
 SIM_OBJECTS = $(patsubst %,out/sim/%,$(OBJECTS))
 AVR_OBJECTS = $(patsubst %,out/avr/%,$(OBJECTS))
