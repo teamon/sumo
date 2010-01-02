@@ -32,7 +32,10 @@ void parseInput(string in){
 	// Switch1:Switch2:Ground1:Ground2:Ground3:Ground4
 	vector<int> items;
 	split(in, ":", &items);
-	for(int i=0; i<4; i++) setb(ground, items[i+2]);
+	for(int i=0; i<4; i++){
+		if(items[i+2]) setb(ground, i);
+		else clrb(ground, i);
+	}
 }
 
 void simulate(){
