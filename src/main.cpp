@@ -4,7 +4,7 @@
 // global variables
 Engine engine[ENGINE_NUM];
 char ground;
-Queue q;
+Queue Q;
 
 void setup(){
 	// initialize engines
@@ -12,7 +12,48 @@ void setup(){
 	engine[ENGINE_RIGHT] = Engine();
 	
 	// initialize ground sensors
-	ground = 0;
+	ground = 0; // ....0000
+}
+
+void reverse(){
+	engine[ENGINE_LEFT].reverse();
+}
+
+void escape(){
+	if(ground == 0) return;
+	
+	Q.clear();
+	
+	switch(ground){
+		case _BV(GROUND_FRONT_LEFT):
+			Q.push(-100, -100, 30);
+		break;
+			
+		case _BV(GROUND_FRONT_RIGHT):
+			Q.push(-100, -100, 30);
+		break;
+
+		case _BV(GROUND_BACK_LEFT):
+		break;
+		
+		case _BV(GROUND_BACK_RIGHT):
+		break;
+		
+		
+		case _BV(GROUND_FRONT_LEFT) | _BV(GROUND_FRONT_RIGHT):
+		break;
+		
+		case _BV(GROUND_BACK_LEFT) | _BV(GROUND_BACK_RIGHT):
+		break;
+		
+		
+		case _BV(GROUND_FRONT_LEFT) | _BV(GROUND_BACK_LEFT):
+		break;
+		
+		case _BV(GROUND_FRONT_RIGHT) | _BV(GROUND_BACK_RIGHT):
+		break;
+		
+	}
 }
 
 void loop(){
@@ -20,14 +61,15 @@ void loop(){
 	simulate();
 	#endif
 	
+	escape();
 	
-	if(!q.empty()){
-		engine[ENGINE_LEFT].setPower(q.front()->left);
-		engine[ENGINE_RIGHT].setPower(q.front()->right);
-		q.decrement(1);
+	
+	if(!Q.empty()){
+		engine[ENGINE_LEFT].setPower(Q.front()->left);
+		engine[ENGINE_RIGHT].setPower(Q.front()->right);
+		Q.decrement(1);
 	} else {
-		q.push(40, 60, 30);
-		q.push(-60, -40, 30);
+		Q.push(40, 60, 50);
 	}
 }
 

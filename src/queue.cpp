@@ -1,7 +1,6 @@
 #include "sumo.h"
 #include "queue.h"
 
-
 struct QItem {
 	QMove move;
 	QItem* next;
@@ -26,6 +25,7 @@ bool Queue::empty(){
 }
 
 void Queue::push(QMove move){
+	move.time *= MOVE_TIME_MULTIPLIER;
 	QItem *curr = (QItem*) malloc(sizeof(QItem));
 	if(head == NULL) head = curr;
 	else tail->next = curr;

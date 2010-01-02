@@ -9,25 +9,15 @@
 	#include <iostream>
 	
 	#define _delay_ms(x) usleep(x)
+	#define D(x) std::cout << x << std::endl
+	#define _BV(x) (1 << x)
 	void simulate();
 #endif
 
 #include "engine.h"
 
-/*
-	|-----------------------|
-	|  G0               G1  |
-	|                       |
-	|                       |
-	|  E0               E1  |
-	|                       |
-	|                       |
-	|  G2               G3  |
-	|-----------------------|
-
-*/
-
-#define ITERATION_TIME 100000
+#define ITERATION_TIME 100
+#define MOVE_TIME_MULTIPLIER 100
 
 #define ENGINE_NUM 2
 #define ENGINE_LEFT 0

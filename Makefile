@@ -54,5 +54,6 @@ main: $(SIM_OBJECTS)
 # ------ MISC ------
 
 clean:
+	rm -f main main.hex
 	rm -rf out/sim/*
 	rm -rf out/avr/*
