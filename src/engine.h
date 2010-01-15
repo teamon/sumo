@@ -7,11 +7,12 @@ public:
 	void stop();
 	void setPower(char power); // power: -100..100
 	char getPower();
-	void reverse();
+	void invert();
 	
 private:
 	char power;
-	bool _reverse;
+	char dir;
+	void run();
 };
 
 #endif

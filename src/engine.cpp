@@ -4,25 +4,26 @@
 // TODO: Add secondary constructor with all required parameters for engine controller
 
 Engine::Engine(){
-	_reverse = false;
+	dir = 1;
+	// TODO: AVR, Initialize engine
 }
 
 void Engine::stop(){
-	// TODO: Stop motor immediately
+	// TODO: AVR, Stop motor immediately
 }
 
 void Engine::setPower(char p){
-	if(p == getPower()) return;
-	power = p;
-	p = abs(p);
-	
-	if(p > 100) p = 100; // max power is 100%
+	if(p*dir == getPower()) return;
+	power = p*dir;
+}
+
+void Engine::run(){
 	if(power > 0) {
 		// forward
-		// TODO: Go forward
+		// TODO: AVR, Go forward
 	} else if(power < 0) {
 		// backward
-		// TODO: Go backward
+		// TODO: AVR, Go backward
 	} else { // (power == 0)
 		stop();
 	}
@@ -32,6 +33,6 @@ char Engine::getPower(){
 	return power;
 }
 
-void Engine::reverse(){
-	_reverse = !_reverse;
+void Engine::invert(){
+	dir *= -1;
 }

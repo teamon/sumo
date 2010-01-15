@@ -3,3 +3,22 @@ Sumo Robot Software
 make sim - compile for SumoSim
 make avr - compile for ATmega
 make flash - program microcontroller
+
+
+### info ###
+
+
+	|-----------------------|
+	|  G0               G1  |
+	|                       |
+	|                       |
+	|  E0               E1  |
+	|                       |
+	|                       |
+	|  G2               G3  |
+	|-----------------------|
+
+### REVERSE
+
+G0 <-> G3
+G2 <-> G!

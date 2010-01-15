@@ -4,6 +4,7 @@
 // global variables
 Engine engine[ENGINE_NUM];
 char ground;
+bool inverted = false;
 Queue Q;
 
 void setup(){
@@ -15,8 +16,11 @@ void setup(){
 	ground = 0; // ....0000
 }
 
-void reverse(){
-	engine[ENGINE_LEFT].reverse();
+void invert(){
+	engine[ENGINE_LEFT].invert();
+	engine[ENGINE_RIGHT].invert();
+	
+	inverted = !inverted;
 }
 
 void escape(){
@@ -26,31 +30,43 @@ void escape(){
 	
 	switch(ground){
 		case _BV(GROUND_FRONT_LEFT):
-			Q.push(-100, -100, 30);
+			invert();
+			// Q.push(-100, -100, 5);
+			// Q.push(-100, 100, 20);
 		break;
 			
 		case _BV(GROUND_FRONT_RIGHT):
-			Q.push(-100, -100, 30);
+			invert();
+			// Q.push(-100, -100, 5);
+			// Q.push(-100, 100, 20);
 		break;
+		
+		// TODO: Escape
 
 		case _BV(GROUND_BACK_LEFT):
+			Q.push(100, 80, 5);
 		break;
 		
 		case _BV(GROUND_BACK_RIGHT):
+			Q.push(80, 100, 5);
 		break;
 		
 		
-		case _BV(GROUND_FRONT_LEFT) | _BV(GROUND_FRONT_RIGHT):
+		case _BV(GROUND_FRONT_LEFT) | _BV(GROUND_FRONT_RIGHT): // FRONT
+			invert();
+			// Q.push(-100, -100, 10);
+			// Q.push(-100, 100, 20);
+			// Q.push(100, 100, 10);
 		break;
 		
-		case _BV(GROUND_BACK_LEFT) | _BV(GROUND_BACK_RIGHT):
+		case _BV(GROUND_BACK_LEFT) | _BV(GROUND_BACK_RIGHT): // BACK
 		break;
 		
 		
-		case _BV(GROUND_FRONT_LEFT) | _BV(GROUND_BACK_LEFT):
+		case _BV(GROUND_FRONT_LEFT) | _BV(GROUND_BACK_LEFT): // LEFT
 		break;
 		
-		case _BV(GROUND_FRONT_RIGHT) | _BV(GROUND_BACK_RIGHT):
+		case _BV(GROUND_FRONT_RIGHT) | _BV(GROUND_BACK_RIGHT): // RIGHT
 		break;
 		
 	}
@@ -61,15 +77,16 @@ void loop(){
 	simulate();
 	#endif
 	
-	escape();
+	if(inverted) ground = (ground >> 2) | (ground << 2) & (0x0F); // 0000abcd => 0000cdab
 	
+	escape();
 	
 	if(!Q.empty()){
 		engine[ENGINE_LEFT].setPower(Q.front()->left);
 		engine[ENGINE_RIGHT].setPower(Q.front()->right);
 		Q.decrement(1);
 	} else {
-		Q.push(40, 60, 50);
+		Q.push(70, 50, 50);
 	}
 }
 
@@ -79,7 +96,7 @@ int main(void){
 	
 	for(;;){
 		loop();
-		_delay_ms(ITERATION_TIME);
+		//_delay_ms(ITERATION_TIME);
 	}
 	return 0;
 }

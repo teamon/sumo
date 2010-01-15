@@ -8,9 +8,10 @@
 #else
 	#include <iostream>
 	
-	#define _delay_ms(x) usleep(x)
+	#define _delay_ms(x) 
 	#define D(x) std::cout << x << std::endl
 	#define _BV(x) (1 << x)
+	
 	void simulate();
 #endif
 
@@ -34,8 +35,8 @@
 #define negb(byte, bit) byte ^= (1 << bit)
 #define bset(byte, bit) byte & (1 << bit)
 
-extern char ground; // | 0 | 0 | 0 | 0 | G3 | G2 | G1 | G0 |
-// check ground with bset(Ground, GROUND_FRONT_LEFT)
+extern char ground; // [ 0 | 0 | 0 | 0 | G3 | G2 | G1 | G0 ]
+// check ground with: ground == _BV(GROUNT_FRONT_LEFT)
 
 extern Engine engine[ENGINE_NUM];
 

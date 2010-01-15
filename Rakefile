@@ -1,6 +1,6 @@
 desc "TODO"
 task :todo do
-  a = Dir["src/**/*"].map { |f|
+  a = Dir["src/**/*{cpp,h}"].map { |f|
     File.open(f, "r").readlines.map.with_index { |l, i|
       l =~ /\/\/ ?TODO: ?(.+)/ && [f, i+1, $1]
     }

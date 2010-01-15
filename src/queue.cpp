@@ -12,9 +12,10 @@ Queue::Queue(){
 	head = tail = NULL;
 }
 
-Queue::~Queue(){
-	clear();
-}
+// Can fuck that
+// Queue::~Queue(){
+// 	clear();
+// }
 
 void Queue::clear(){
 	while(head != NULL) pop();
@@ -25,7 +26,7 @@ bool Queue::empty(){
 }
 
 void Queue::push(QMove move){
-	move.time *= MOVE_TIME_MULTIPLIER;
+	//move.time *= MOVE_TIME_MULTIPLIER;
 	QItem *curr = (QItem*) malloc(sizeof(QItem));
 	if(head == NULL) head = curr;
 	else tail->next = curr;

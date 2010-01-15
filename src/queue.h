@@ -9,7 +9,7 @@ struct QMove {
 class Queue {
 public:
 	Queue();
-	~Queue();
+	// ~Queue();
 	void push(QMove move);
 	void push(char left, char right, int time);
 	void push(char left, char right, int time, char priority);
