@@ -15,6 +15,7 @@ void Engine::stop(){
 void Engine::setPower(char p){
 	if(p*dir == getPower()) return;
 	power = p*dir;
+	run();
 }
 
 void Engine::run(){

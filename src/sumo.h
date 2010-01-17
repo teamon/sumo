@@ -3,7 +3,9 @@
 
 #ifdef AVR
 	#include <avr/io.h>
+	#include <avr/interrupt.h>
 	#include <util/delay.h>
+	#include <avr/pgmspace.h>
 	#include <stdlib.h>
 #else
 	#include <iostream>
@@ -35,9 +37,16 @@
 #define negb(byte, bit) byte ^= (1 << bit)
 #define bset(byte, bit) byte & (1 << bit)
 
+
 extern char ground; // [ 0 | 0 | 0 | 0 | G3 | G2 | G1 | G0 ]
 // check ground with: ground == _BV(GROUNT_FRONT_LEFT)
 
 extern Engine engine[ENGINE_NUM];
+
+// usart.cpp
+void usart_init();
+void usart_write_byte(unsigned char byte);
+void usart_write_string(char *string);
+void usart_write_number(long number);
 
 #endif

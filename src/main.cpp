@@ -7,6 +7,18 @@ char ground;
 bool inverted = false;
 Queue Q;
 
+// volatile int adcValue;
+
+// SIGNAL(SIG_ADC){
+// 	adcValue = (ADCL | (ADCH << 8));
+// 	// adcValue = ADCH;
+// 	
+// 	// usart_write_number(adcValue);
+// 	
+// 	// usart_write_byte('\n');
+// 	setb(ADCSRA, ADSC);
+// }
+
 void setup(){
 	// initialize engines
 	engine[ENGINE_LEFT] = Engine();
@@ -14,6 +26,13 @@ void setup(){
 	
 	// initialize ground sensors
 	ground = 0; // ....0000
+	
+	
+	#ifdef AVR
+
+	usart_init();
+
+	#endif
 }
 
 void invert(){
@@ -90,13 +109,44 @@ void loop(){
 	}
 }
 
-
 int main(void){
 	setup();
+
+	int i = 0;
+	
 	
 	for(;;){
-		loop();
-		//_delay_ms(ITERATION_TIME);
+		usart_write_number((i++) % 8 < 4 ? 1 : 0);
+		usart_write_byte(':');
+ 	 	usart_write_number(0);
+	  	usart_write_byte(':');
+	  	usart_write_number(0);
+	  	usart_write_byte(':');
+	  	usart_write_number(1);
+	  	usart_write_byte(':');
+  	
+	  	usart_write_number(90);
+	  	usart_write_byte(':');
+	  	usart_write_number(100);
+	  	usart_write_byte(':');
+	  	usart_write_number(1000);
+	  	usart_write_byte(':');
+	  	usart_write_number(300);
+	  	usart_write_byte(':');
+	  	usart_write_number(800);
+	  	usart_write_byte(':');
+	  	usart_write_number(5);
+	  	usart_write_byte(':');
+	
+	  	usart_write_number(80);
+	  	usart_write_byte(':');
+	  	usart_write_number(-40);
+	  	usart_write_byte(':');
+	  	usart_write_string("dupa");
+	  	usart_write_byte('\n');
+				
+		//loop();
+		_delay_ms(ITERATION_TIME);
 	}
 	return 0;
 }
