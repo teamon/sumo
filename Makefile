@@ -1,11 +1,6 @@
 DEVICE      = atmega32
 CLOCK       = 8000000
 PROGRAMMER  = -c stk500v2 -P avrdoper
-OBJECTS     = main.o engine.o queue.o usart.o
-
-SO = $(OBJECTS) socket/Socket.o socket/ClientSocket.o simulator.o
-SIM_OBJECTS = $(patsubst %,out/sim/%,$(SO))
-AVR_OBJECTS = $(patsubst %,out/avr/%,$(OBJECTS))
 
 FUSES       = -U hfuse:w:0xd9:m -U lfuse:w:0x24:m
 AVRDUDE     = avrdude $(PROGRAMMER) -p $(DEVICE)
@@ -13,6 +8,15 @@ AVRDUDE     = avrdude $(PROGRAMMER) -p $(DEVICE)
 CCAVR       = avr-g++ -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 CC          = g++
 
+OBJECTS     = main.o engine.o queue.o
+
+SIM_OBJECTS = $(patsubst %,out/sim/%,$(OBJECTS) socket/Socket.o socket/ClientSocket.o simulator.o)
+AVR_OBJECTS = $(patsubst %,out/avr/%,$(OBJECTS))
+
+ifdef DEBUG
+	CCAVR += -DDEBUG=1
+	AVR_OBJECTS += $(patsubst %,out/avr/%,usart.o debug.o)
+endif
 
 all: avr sim
 

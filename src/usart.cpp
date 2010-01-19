@@ -27,24 +27,19 @@ void usart_write_number(long number){
 	if(number < 0) usart_write_byte('-');
 	number = abs(number);
 	
-	long a = 1000000000; //9
+	long a = 1000000000;
 	long b = 999999999;
 	char k;
 	
 	for(int i=0; i<10; i++){
 		k = (number / a) % 10;
-		if(number > b || i == 9){
-			usart_write_byte(k+48);
-		}
-		
+		if(number > b || i == 9) usart_write_byte(int2char(k));
 		a /= 10;
 		b /= 10;
 	}
 }
 
-// unsigned char usart_read_byte() {
-// 	if (UCSRA & (1<<7))
-// 		return UDR;
-// 	else
-// 		return 0;
-// }
+unsigned char usart_read_byte() {
+	if (UCSRA & (1<<7)) return UDR;
+	else return 0;
+}

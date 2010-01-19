@@ -1,23 +1,18 @@
 #include "sumo.h" //dupa
-#include "queue.h"
 
 // global variables
 Engine engine[ENGINE_NUM];
 char ground;
+char dist[DIST_NUM];
 bool inverted = false;
 Queue Q;
 
-// volatile int adcValue;
-
-// SIGNAL(SIG_ADC){
-// 	adcValue = (ADCL | (ADCH << 8));
-// 	// adcValue = ADCH;
-// 	
-// 	// usart_write_number(adcValue);
-// 	
-// 	// usart_write_byte('\n');
-// 	setb(ADCSRA, ADSC);
-// }
+#ifdef DEBUG
+char debug_dist_enabled = (0xFF >> (8-DIST_NUM));
+char debug_ground_enabled = (0xFF >> (8-GROUND_NUM));
+char debug_manual_engine_mode = 0;
+char debug_invert_enabled = 1;
+#endif
 
 void setup(){
 	// initialize engines
@@ -28,14 +23,17 @@ void setup(){
 	ground = 0; // ....0000
 	
 	
-	#ifdef AVR
-
+#ifdef DEBUG
 	usart_init();
+#endif
 
-	#endif
 }
 
 void invert(){
+	#ifdef DEBUG
+	if(!debug_invert_enabled) return;
+	#endif
+	
 	engine[ENGINE_LEFT].invert();
 	engine[ENGINE_RIGHT].invert();
 	
@@ -43,6 +41,10 @@ void invert(){
 }
 
 void escape(){
+	#ifdef DEBUG
+	ground &= debug_ground_enabled;
+	#endif
+	
 	if(ground == 0) return;
 	
 	Q.clear();
@@ -50,14 +52,10 @@ void escape(){
 	switch(ground){
 		case _BV(GROUND_FRONT_LEFT):
 			invert();
-			// Q.push(-100, -100, 5);
-			// Q.push(-100, 100, 20);
 		break;
 			
 		case _BV(GROUND_FRONT_RIGHT):
 			invert();
-			// Q.push(-100, -100, 5);
-			// Q.push(-100, 100, 20);
 		break;
 		
 		// TODO: Escape
@@ -96,6 +94,11 @@ void loop(){
 	simulate();
 	#endif
 	
+	#ifdef DEBUG
+	debug_send_state();
+	debug_read_input();
+	#endif
+	
 	if(inverted) ground = (ground >> 2) | (ground << 2) & (0x0F); // 0000abcd => 0000cdab
 	
 	escape();
@@ -112,40 +115,8 @@ void loop(){
 int main(void){
 	setup();
 
-	int i = 0;
-	
-	
 	for(;;){
-		usart_write_number((i++) % 8 < 4 ? 1 : 0);
-		usart_write_byte(':');
- 	 	usart_write_number(0);
-	  	usart_write_byte(':');
-	  	usart_write_number(0);
-	  	usart_write_byte(':');
-	  	usart_write_number(1);
-	  	usart_write_byte(':');
-  	
-	  	usart_write_number(90);
-	  	usart_write_byte(':');
-	  	usart_write_number(100);
-	  	usart_write_byte(':');
-	  	usart_write_number(1000);
-	  	usart_write_byte(':');
-	  	usart_write_number(300);
-	  	usart_write_byte(':');
-	  	usart_write_number(800);
-	  	usart_write_byte(':');
-	  	usart_write_number(5);
-	  	usart_write_byte(':');
-	
-	  	usart_write_number(80);
-	  	usart_write_byte(':');
-	  	usart_write_number(-40);
-	  	usart_write_byte(':');
-	  	usart_write_string("dupa");
-	  	usart_write_byte('\n');
-				
-		//loop();
+		loop();
 		_delay_ms(ITERATION_TIME);
 	}
 	return 0;
