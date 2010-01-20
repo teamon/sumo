@@ -61,11 +61,15 @@ unsigned char usart_read_byte();
 #ifdef DEBUG
 void debug_send_state();
 void debug_read_input();
+void debug_wait_for_input(char c);
 
 extern char debug_dist_enabled;
 extern char debug_ground_enabled;
 extern char debug_manual_engine_mode;
 extern char debug_invert_enabled;
+
+#define OFFBLAST_CHAR '\n'
+
 #endif
 
 #endif

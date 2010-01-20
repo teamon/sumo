@@ -15,14 +15,14 @@ AVR_OBJECTS = $(patsubst %,out/avr/%,$(OBJECTS))
 
 ifdef DEBUG
 	CCAVR += -DDEBUG=1
-	AVR_OBJECTS += $(patsubst %,out/avr/%,usart.o debug.o)
+	AVR_OBJECTS += $(patsubst %,out/avr/%,usart.o debug/buffer.o debug/debug.o)
 endif
 
 all: avr sim
 
 
 # ------ AVR ------
-avr: main.hex
+avr: mkdirs main.hex
 
 out/avr/%.o : src/%.cpp
 	$(CCAVR) -c $< -o $@
@@ -44,9 +44,6 @@ fuse:
 # ------ SIM ------
 sim: mkdirs main
 
-mkdirs:
-	mkdir -p out/sim/socket
-
 out/sim/%.o : src/%.cpp
 	$(CC) -c $< -o $@
 
@@ -56,6 +53,10 @@ main: $(SIM_OBJECTS)
 
 
 # ------ MISC ------
+
+mkdirs:
+	mkdir -p out/sim/socket
+	mkdir -p out/avr/debug
 
 clean:
 	rm -f main main.hex

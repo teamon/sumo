@@ -8,13 +8,13 @@ void usart_init(){
 	UBRRH = (unsigned char) (ubrr >> 8);
 	UBRRL = (unsigned char) ubrr;	
 	
-	// receiver and transmiter
-	UCSRB = (1 << RXEN) | (1 << TXEN);
+	// RXC interrupt, receiver and transmiter
+	UCSRB = (1 << RXCIE) | (1 << RXEN) | (1 << TXEN);
 	UCSRC = (1 << URSEL) | (1 << USBS) | (1 << UCSZ1) | (3 << UCSZ0);
 }
 
 void usart_write_byte(unsigned char byte) {
-	while (!(UCSRA & (1<<5)));
+	while (!(UCSRA & (1<<UDRE)));
 	UDR = byte;
 }
 
@@ -40,6 +40,6 @@ void usart_write_number(long number){
 }
 
 unsigned char usart_read_byte() {
-	if (UCSRA & (1<<7)) return UDR;
-	else return 0;
+	if(!(UCSRA & (1<<RXC))) return 0;
+	return UDR;
 }

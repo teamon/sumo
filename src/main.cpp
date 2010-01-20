@@ -27,6 +27,8 @@ void setup(){
 	usart_init();
 #endif
 
+
+	sei(); // always at the end
 }
 
 void invert(){
@@ -114,6 +116,10 @@ void loop(){
 
 int main(void){
 	setup();
+	
+	#ifdef DEBUG
+	debug_wait_for_input(OFFBLAST_CHAR);
+	#endif
 
 	for(;;){
 		loop();
