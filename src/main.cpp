@@ -12,6 +12,7 @@ char debug_dist_enabled = (0xFF >> (8-DIST_NUM));
 char debug_ground_enabled = (0xFF >> (8-GROUND_NUM));
 char debug_manual_engine_mode = 0;
 char debug_invert_enabled = 1;
+volatile char debug_wait = 1;
 #endif
 
 void setup(){
@@ -27,8 +28,9 @@ void setup(){
 	usart_init();
 #endif
 
-
+#ifdef AVR
 	sei(); // always at the end
+#endif
 }
 
 void invert(){
@@ -98,7 +100,7 @@ void loop(){
 	
 	#ifdef DEBUG
 	debug_send_state();
-	debug_read_input();
+	debug_parse_input();
 	#endif
 	
 	if(inverted) ground = (ground >> 2) | (ground << 2) & (0x0F); // 0000abcd => 0000cdab
@@ -118,7 +120,7 @@ int main(void){
 	setup();
 	
 	#ifdef DEBUG
-	debug_wait_for_input(OFFBLAST_CHAR);
+	while(debug_wait);
 	#endif
 
 	for(;;){

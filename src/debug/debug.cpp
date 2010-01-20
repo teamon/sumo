@@ -6,7 +6,19 @@ Buffer buffer;
 ISR(USART_RXC_vect){
 	char in;
 	in = UDR;
+	
+	switch(in){
+		case '*': // must be fast
+			asm("cli"); 
+			asm("jmp 0");
+			break;
+		case '!':
+			debug_wait = 0;
+			break;
+	}
+	
 	buffer.push(in);
+//	debug_parse_input();
 }
 
 void debug(char c){
@@ -54,26 +66,86 @@ void debug_send_state(){
 	usart_write_byte('\n');
 }
 
-void debug_read_input(){
-	char input = usart_read_byte();
+void debug_parse_input(){
+	usart_write_byte('^');
+	usart_write_number(buffer.size());
+	usart_write_byte('\n');
 	
-	char a = usart_read_byte();
-	char b = usart_read_byte();
-	char c = usart_read_byte();
-	
-	debug(input);
-	debug(a);
-	debug(b);
-	debug(c);
-	
-	switch(input){
-		case '*': // reset
-			asm("cli"); 
-			asm("jmp 0"); 
+	if(buffer.empty()) return;
+	switch(buffer.read()){
+		case 'G':
+			if(buffer.size() >= 2){
+				char n = buffer.read();
+				if(*buffer.front() == '0') clrb(debug_ground_enabled, char2int(n));
+				else setb(debug_ground_enabled, char2int(n));
+				buffer.pop();
+			}
 			break;
-		case 'G': // enable/disable ground sensors
-			enable_disable(&debug_ground_enabled);
+
+		case 'D':
+			if(buffer.size() >= 2){
+				char n = buffer.read();
+				if(*buffer.front() == '0') clrb(debug_dist_enabled, char2int(n));
+				else setb(debug_dist_enabled, char2int(n));
+				buffer.pop();
+			}
 			break;
+
+		case 'M': // enable/disable manual engine mode
+			if(buffer.size() >= 1){
+				if(*buffer.front() == '0') debug_manual_engine_mode = 0;
+				else debug_manual_engine_mode = 1;
+			}
+			break;
+			
+			// case 'E': // set motor power (only at manual mode)
+			// 	if(!debug_manual_engine_mode) break;
+			// 	
+			// 	char c = usart_read_byte();
+			// 	
+			// 		char sign = 1;
+			// 		int value = 0;
+			// 		char v;
+			// 		
+			// 		while(1){
+			// 			v = usart_read_byte();
+			// 			if(v == '\n') break;
+			// 			else if(v == '-') sign = -1;
+			// 			else {
+			// 				value *= 10;
+			// 				value += char2int(v);
+			// 			}
+			// 		}
+			// 		
+			// 		engine[char2int(c)].setPower(v);
+			// 	
+			// 	break;
+			
+		default:
+			break;
+	}
+}
+
+// void debug_read_input(){
+// 	char input = usart_read_byte();
+// 	
+// 	char a = usart_read_byte();
+// 	char b = usart_read_byte();
+// 	char c = usart_read_byte();
+// 	
+// 	debug(input);
+// 	debug(a);
+// 	debug(b);
+// 	debug(c);
+// 	
+// 	switch(input){
+// 		case '*': // reset
+// 			asm("cli"); 
+// 			asm("jmp 0"); 
+// 			break;
+// 		case 'G': // enable/disable ground sensors
+// 			enable_disable(&debug_ground_enabled);
+// 			break;
 			
 		// case 'D': // enable/disable distance sensors
 		// 	enable_disable(&debug_dist_enabled);
@@ -108,8 +180,8 @@ void debug_read_input(){
 		// 		engine[char2int(c)].setPower(v);
 		// 	
 		// 	break;
-	}
-}
+	// }
+// }
 
 void debug_wait_for_input(char c){
 	while(usart_read_byte() != c){}

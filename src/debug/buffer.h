@@ -9,6 +9,11 @@ public:
 	void clear();
 	bool empty();
 	char * front();
+	int size();
+	char read();
+	
+private:
+	int _counter;
 };
 
 #endif
