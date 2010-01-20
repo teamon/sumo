@@ -18,7 +18,7 @@ ISR(USART_RXC_vect){
 	}
 	
 	buffer.push(in);
-//	debug_parse_input();
+	debug_parse_input();
 }
 
 void debug(char c){
@@ -34,8 +34,8 @@ void read_until_newline(){
 void enable_disable(char *reg){
 	char c = usart_read_byte();
 	char v = usart_read_byte();
-	debug(c);
-	debug(v);
+	// debug(c);
+	// debug(v);
 	if(v == '0') clrb(*reg, char2int(c));
 	else if(v == '1') setb(*reg, char2int(c));
 	//read_until_newline();
@@ -49,7 +49,7 @@ void debug_send_state(){
 	}
 	
 	for(int i=0; i<DIST_NUM; i++){
-		usart_write_number(_BV(dist[i]));
+		usart_write_number(dist[i]);
 		usart_write_byte(':');
 	}
 

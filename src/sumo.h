@@ -49,7 +49,7 @@ extern char ground; // [ 0 | 0 | 0 | 0 | G3 | G2 | G1 | G0 ]
 
 extern Engine engine[ENGINE_NUM];
 
-extern char dist[DIST_NUM];
+extern volatile int dist[DIST_NUM];
 
 // usart.cpp
 void usart_init();
