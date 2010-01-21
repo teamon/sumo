@@ -22,7 +22,6 @@ bool Buffer::empty(){
 }
 
 void Buffer::push(char c){
-	//move.time *= MOVE_TIME_MULTIPLIER;
 	BufferItem *curr = (BufferItem*) malloc(sizeof(BufferItem));
 	if(_head == NULL) _head = curr;
 	else _tail->next = curr;

@@ -1,4 +1,4 @@
-#include "sumo.h"
+#include "../sumo.h"
 
 void usart_init(){
 	// int ubrr = (F_CPU/(4800*16))-1;

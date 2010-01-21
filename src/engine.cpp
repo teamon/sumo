@@ -1,6 +1,11 @@
 #include "engine.h"
 #include "sumo.h"
 
+void engine_init(){
+	engine[ENGINE_LEFT] = Engine();
+	engine[ENGINE_RIGHT] = Engine();
+}
+
 // TODO: Add secondary constructor with all required parameters for engine controller
 
 Engine::Engine(){
@@ -9,6 +14,7 @@ Engine::Engine(){
 }
 
 void Engine::stop(){
+	
 	// TODO: AVR, Stop motor immediately
 }
 
@@ -26,7 +32,7 @@ void Engine::run(){
 		// backward
 		// TODO: AVR, Go backward
 	} else { // (power == 0)
-		stop();
+		//stop();
 	}
 }
 

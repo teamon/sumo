@@ -25,10 +25,10 @@ volatile char debug_wait = 1;
 #endif
 
 void setup(){
+	
 	// initialize engines
 	// TODO: Move to engine_init()
-	engine[ENGINE_LEFT] = Engine();
-	engine[ENGINE_RIGHT] = Engine(); 
+
 	
 	// initialize ground sensors
 	ground = 0; // ....0000
@@ -39,17 +39,11 @@ void setup(){
 #endif
 
 #ifdef AVR
-	DDRA = 0;
-	PORTA = 0;
+	engine_init();
 
-	ADCSRA = _BV(ADEN) | _BV(ADIE) | _BV(ADSC) | _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0); // ADC init
-	ADMUX = _BV(REFS0);
-	
-	// clrb(SFIOR, ADTS2);
-	// clrb(SFIOR, ADTS1);
-	// clrb(SFIOR, ADTS0);
 	sei(); // always at the end
 #endif
+
 }
 
 void invert(){

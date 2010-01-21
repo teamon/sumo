@@ -46,11 +46,13 @@
 
 extern char ground; // [ 0 | 0 | 0 | 0 | G3 | G2 | G1 | G0 ]
 // check ground with: ground == _BV(GROUNT_FRONT_LEFT)
-
 extern Engine engine[ENGINE_NUM];
-
 extern volatile int dist[DIST_NUM];
 
+// engine.cpp
+void engine_init();
+
+#ifdef DEBUG
 // usart.cpp
 void usart_init();
 void usart_write_byte(unsigned char byte);
@@ -58,9 +60,8 @@ void usart_write_string(char *string);
 void usart_write_number(long number);
 unsigned char usart_read_byte();
 
-#ifdef DEBUG
+// debug.cpp
 void debug_send_state();
-// void debug_read_input();
 void debug_parse_input();
 void debug_wait_for_input(char c);
 
@@ -69,9 +70,6 @@ extern char debug_ground_enabled;
 extern char debug_manual_engine_mode;
 extern char debug_invert_enabled;
 extern volatile char debug_wait;
-
-
-// #define OFFBLAST_CHAR '\n'
 
 #endif
 
