@@ -41,9 +41,6 @@
 #define negb(byte, bit) byte ^= (1 << bit)
 #define bset(byte, bit) byte & (1 << bit)
 
-#define char2int(c) (c - 48)
-#define int2char(c) (c + 48)
-
 extern char ground; // [ 0 | 0 | 0 | 0 | G3 | G2 | G1 | G0 ]
 // check ground with: ground == _BV(GROUNT_FRONT_LEFT)
 extern Engine engine[ENGINE_NUM];
@@ -52,18 +49,20 @@ extern volatile int dist[DIST_NUM];
 // engine.cpp
 void engine_init();
 
+//dist
+void dist_init ();
+
 #ifdef DEBUG
+
+#define char2int(c) (c - 48)
+#define int2char(c) (c + 48)
+
 // usart.cpp
 void usart_init();
 void usart_write_byte(unsigned char byte);
 void usart_write_string(char *string);
 void usart_write_number(long number);
 unsigned char usart_read_byte();
-
-//dist
-void dist_init ();
-
-#ifdef DEBUG
 
 // debug.cpp
 void debug_send_state();

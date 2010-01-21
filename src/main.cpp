@@ -7,14 +7,6 @@ volatile int dist[DIST_NUM];
 bool inverted = false;
 Queue Q;
 
-/*SIGNAL(SIG_ADC)
-{
-	dist[0] = (ADCL | (ADCH << 8));
-	ADCSRA |= _BV(ADSC);
-}
-*/
-
-
 
 #ifdef DEBUG
 char debug_dist_enabled = (0xFF >> (8-DIST_NUM));
@@ -25,11 +17,6 @@ volatile char debug_wait = 1;
 #endif
 
 void setup(){
-	
-	// initialize engines
-	// TODO: Move to engine_init()
-
-	
 	// initialize ground sensors
 	ground = 0; // ....0000
 	
@@ -40,6 +27,7 @@ void setup(){
 
 #ifdef AVR
 	engine_init();
+	dist_init();
 
 	sei(); // always at the end
 #endif
