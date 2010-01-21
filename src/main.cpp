@@ -17,7 +17,7 @@ volatile char debug_wait = 1;
 #endif
 
 void setup(){
-	// initialize ground sensors
+	ground_init();
 	ground = 0; // ....0000
 	
 	
