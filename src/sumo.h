@@ -60,6 +60,11 @@ void usart_write_string(char *string);
 void usart_write_number(long number);
 unsigned char usart_read_byte();
 
+//dist
+void dist_init ();
+
+#ifdef DEBUG
+
 // debug.cpp
 void debug_send_state();
 void debug_parse_input();

@@ -7,12 +7,12 @@ volatile int dist[DIST_NUM];
 bool inverted = false;
 Queue Q;
 
-SIGNAL(SIG_ADC)
+/*SIGNAL(SIG_ADC)
 {
 	dist[0] = (ADCL | (ADCH << 8));
 	ADCSRA |= _BV(ADSC);
 }
-
+*/
 
 
 
