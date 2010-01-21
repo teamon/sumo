@@ -12,8 +12,8 @@ SIGNAL (SIG_ADC)
 
 
 void dist_init (){
-	DDRC = 0b11111110; // TODO: Change to DIST_PORT
+	DIST_DDR = 0xE0; // PA0-PA5 -> input
 
-	ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADIE) | _BV(ADPS2) | _BV(ADPS0); //INIT ADC sprawdz dla mega32
-	ADMUX = _BV(REFS0); //INIT ADC 
+	ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADIE) | _BV(ADPS2) | _BV(ADPS0); 
+	ADMUX = _BV(REFS0); 
 }

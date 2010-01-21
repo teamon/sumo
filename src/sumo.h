@@ -34,6 +34,7 @@
 #define GROUND_BACK_RIGHT 3
 
 #define DIST_NUM 6
+#define DIST_DDR DDRA
 
 // macros
 #define setb(byte, bit) byte |= (1 << bit)
