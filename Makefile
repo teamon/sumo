@@ -8,7 +8,7 @@ AVRDUDE     = avrdude $(PROGRAMMER) -p $(DEVICE)
 CCAVR       = avr-g++ -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 CC          = g++
 
-OBJECTS     = main.o engine.o queue.o
+OBJECTS     = main.o engine.o queue.o dist.o
 
 SIM_OBJECTS = $(patsubst %,out/sim/%,$(OBJECTS) socket/Socket.o socket/ClientSocket.o simulator.o)
 AVR_OBJECTS = $(patsubst %,out/avr/%,$(OBJECTS))
