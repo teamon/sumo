@@ -5,7 +5,6 @@
 	#include <avr/io.h>
 	#include <avr/interrupt.h>
 	#include <util/delay.h>
-	#include <avr/pgmspace.h>
 	#include <stdlib.h>
 #else
 	#include <iostream>

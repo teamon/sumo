@@ -8,6 +8,13 @@ void usart_init(){
 	UBRRH = (unsigned char) (ubrr >> 8);
 	UBRRL = (unsigned char) ubrr;	
 	
+/* TODO: test required
+	#define BAUD 9600
+   	#include <util/setbaud.h>
+   	UBRRH = UBRRH_VALUE;
+   	UBRRL = UBRRL_VALUE;
+*/
+	
 	// RXC interrupt, receiver and transmiter
 	UCSRB = (1 << RXCIE) | (1 << RXEN) | (1 << TXEN);
 	UCSRC = (1 << URSEL) | (1 << USBS) | (1 << UCSZ1) | (3 << UCSZ0);

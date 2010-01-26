@@ -22,7 +22,7 @@ all: avr sim
 
 
 # ------ AVR ------
-avr: mkdirs main.hex
+avr: mkdirs main.hex size
 
 out/avr/%.o : src/%.cpp
 	$(CCAVR) -c $< -o $@
@@ -39,6 +39,9 @@ flash: avr
 
 fuse:
 	$(AVRDUDE) $(FUSES)
+
+size:
+	avr-size out/avr/main.elf
 
 
 # ------ SIM ------

@@ -27,20 +27,6 @@ void debug(char c){
 	usart_write_byte('\n');
 }
 
-void read_until_newline(){
-	while(usart_read_byte() != '\n'){}
-}
-
-void enable_disable(char *reg){
-	char c = usart_read_byte();
-	char v = usart_read_byte();
-	// debug(c);
-	// debug(v);
-	if(v == '0') clrb(*reg, char2int(c));
-	else if(v == '1') setb(*reg, char2int(c));
-	//read_until_newline();
-}
-
 void debug_send_state(){
 	for(int i=0; i<GROUND_NUM; i++){
 		if(ground & _BV(i)) usart_write_byte('1');
@@ -98,29 +84,29 @@ void debug_parse_input(){
 			}
 			break;
 			
-			// case 'E': // set motor power (only at manual mode)
-			// 	if(!debug_manual_engine_mode) break;
-			// 	
-			// 	char c = usart_read_byte();
-			// 	
-			// 		char sign = 1;
-			// 		int value = 0;
-			// 		char v;
-			// 		
-			// 		while(1){
-			// 			v = usart_read_byte();
-			// 			if(v == '\n') break;
-			// 			else if(v == '-') sign = -1;
-			// 			else {
-			// 				value *= 10;
-			// 				value += char2int(v);
-			// 			}
-			// 		}
-			// 		
-			// 		engine[char2int(c)].setPower(v);
-			// 	
-			// 	break;
-			
+		case 'E':
+			if(debug_manual_engine_mode && buffer.size() < 2){
+				char eid = buffer.read();
+				char sign = 1;
+				int val = 0;
+
+				// negative numbers
+				if(*buffer.front() == '-'){
+					sign = -1;
+					buffer.pop();
+				}
+
+				while(*buffer.front() != '\n'){
+					val *= 10; 
+					val += char2int(buffer.pop());
+				}
+
+				engine[char2int(eid)].setPower(val);
+			}
+
+			break;
+
+
 		default:
 			break;
 	}
@@ -183,7 +169,4 @@ void debug_parse_input(){
 	// }
 // }
 
-void debug_wait_for_input(char c){
-	while(usart_read_byte() != c){}
-}
 
