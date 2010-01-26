@@ -7,7 +7,6 @@ volatile int dist[DIST_NUM];
 bool inverted = false;
 Queue Q;
 
-
 #ifdef DEBUG
 char debug_dist_enabled = (0xFF >> (8-DIST_NUM));
 char debug_ground_enabled = (0xFF >> (8-GROUND_NUM));
@@ -119,7 +118,6 @@ void loop(){
 
 int main(void){
 	setup();
-
 	
 	#ifdef DEBUG
 	while(debug_wait);

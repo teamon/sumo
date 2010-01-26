@@ -60,8 +60,8 @@ void engine_init();
 void dist_init ();
 
 //ground
-void ground_init  ();
-void ground_get ();
+void ground_init();
+void ground_get();
 
 #ifdef DEBUG
 

@@ -1,6 +1,6 @@
 #include "sumo.h"
 
-volatile int i = 0;
+volatile char i = 0;
 
 SIGNAL (SIG_ADC)
 {
