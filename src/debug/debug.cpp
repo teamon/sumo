@@ -27,6 +27,12 @@ void debug(char c){
 	usart_write_byte('\n');
 }
 
+void debug(int c){
+	usart_write_byte('^');
+	usart_write_number(c);
+	usart_write_byte('\n');
+}
+
 void debug_send_state(){
 	for(int i=0; i<GROUND_NUM; i++){
 		if(ground & _BV(i)) usart_write_byte('1');
@@ -52,11 +58,7 @@ void debug_send_state(){
 	usart_write_byte('\n');
 }
 
-void debug_parse_input(){
-	usart_write_byte('^');
-	usart_write_number(buffer.size());
-	usart_write_byte('\n');
-	
+void debug_parse_input(){	
 	if(buffer.empty()) return;
 	switch(buffer.read()){
 		case 'G':
@@ -98,7 +100,8 @@ void debug_parse_input(){
 
 				while(*buffer.front() != '\n'){
 					val *= 10; 
-					val += char2int(buffer.pop());
+					val += char2int(*buffer.front());
+					buffer.pop();
 				}
 
 				engine[char2int(eid)].setPower(val);

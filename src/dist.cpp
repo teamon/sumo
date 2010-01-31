@@ -5,8 +5,8 @@ volatile char i = 0;
 SIGNAL (SIG_ADC)
 {
 	*(dist + i) = (ADCL | (ADCH << 8));
-    ADMUX = (ADMUX & 0xE0) | i;
-	if (i++ == 6) i = 0;
+	if (i++ > 5) i = 0;
+    ADMUX = (0xC0 | i);
 	ADCSRA |= _BV(ADSC);
 }
 

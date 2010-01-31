@@ -79,6 +79,9 @@ void debug_send_state();
 void debug_parse_input();
 void debug_wait_for_input(char c);
 
+void debug(char c);
+void debug(int c);
+
 extern char debug_dist_enabled;
 extern char debug_ground_enabled;
 extern char debug_manual_engine_mode;
