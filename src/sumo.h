@@ -1,8 +1,11 @@
 #ifndef SUMO_H_
 #define SUMO_H_
 
+#define _abs(x) ( ((x) < 0) ? (-(x)) : (x) )
+
 #ifdef AVR
 	#include <avr/io.h>
+	#include <avr/iom32.h>
 	#include <avr/interrupt.h>
 	#include <util/delay.h>
 	#include <stdlib.h>
@@ -31,15 +34,35 @@
 #define GROUND_FRONT_RIGHT 1
 #define GROUND_BACK_LEFT 2
 #define GROUND_BACK_RIGHT 3
-#define GROUND_DDR DDRB
-#define GROUND_PORT PORTB
-#define GROUND_0_PIN 0
-#define GROUND_1_PIN 1
-#define GROUND_2_PIN 2
-#define GROUND_3_PIN 3
 
 #define DIST_NUM 6
-#define DIST_DDR DDRA
+
+#ifdef AVR
+	#define ENGINE_DDR DDRD
+	#define ENGINE_PORT PORTD
+	#define ENGINE_0_PIN 4
+	#define ENGINE_1_PIN 5
+	#define ENGINE_0_OCR OCR1B // PD4
+	#define ENGINE_1_OCR OCR1A // PD5
+	#define ENGINE_DIR_DDR DDRD
+	#define ENGINE_DIR_PORT PORTD
+	#define ENGINE_0_DIR_PIN 2
+	#define ENGINE_1_DIR_PIN 3
+	#define ENGINE_FW_PORT PORTD
+	#define ENGINE_FW_DDR DDRD
+	#define ENGINE_0_FW_PIN 6
+	#define ENGINE_1_FW_PIN 7
+
+	#define GROUND_DDR DDRB
+	#define GROUND_PORT PORTB
+	#define GROUND_0_PIN 0
+	#define GROUND_1_PIN 1
+	#define GROUND_2_PIN 2
+	#define GROUND_3_PIN 3
+	
+	#define DIST_DDR DDRA
+#endif
+
 
 // macros
 #define setb(byte, bit) byte |= (1 << bit)

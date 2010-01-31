@@ -60,9 +60,10 @@ void debug_send_state(){
 
 void debug_parse_input(){	
 	if(buffer.empty()) return;
-	switch(buffer.read()){
+	switch(*buffer.front()){
 		case 'G':
 			if(buffer.size() >= 2){
+				buffer.pop();
 				char n = buffer.read();
 				if(*buffer.front() == '0') clrb(debug_ground_enabled, char2int(n));
 				else setb(debug_ground_enabled, char2int(n));
@@ -71,7 +72,8 @@ void debug_parse_input(){
 			break;
 
 		case 'D':
-			if(buffer.size() >= 2){
+			if(buffer.size() > 2){
+				buffer.pop();
 				char n = buffer.read();
 				if(*buffer.front() == '0') clrb(debug_dist_enabled, char2int(n));
 				else setb(debug_dist_enabled, char2int(n));
@@ -80,37 +82,36 @@ void debug_parse_input(){
 			break;
 
 		case 'M': // enable/disable manual engine mode
-			if(buffer.size() >= 1){
+			if(buffer.size() > 1){
+				buffer.pop();
 				if(*buffer.front() == '0') debug_manual_engine_mode = 0;
 				else debug_manual_engine_mode = 1;
 			}
 			break;
 			
 		case 'E':
-			if(debug_manual_engine_mode && buffer.size() < 2){
+			// E:eid:sign:X:X:X
+			if(debug_manual_engine_mode && buffer.size() >= 6){
+				buffer.pop();
 				char eid = buffer.read();
-				char sign = 1;
+				char sign = buffer.read() == '-' ? -1 : 1;
 				int val = 0;
-
-				// negative numbers
-				if(*buffer.front() == '-'){
-					sign = -1;
-					buffer.pop();
-				}
-
-				while(*buffer.front() != '\n'){
+				
+				for(int i=0; i<3; i++){
 					val *= 10; 
 					val += char2int(*buffer.front());
 					buffer.pop();
 				}
-
-				engine[char2int(eid)].setPower(val);
+				
+				debug(val*sign);
+				engine[char2int(eid)].setPower(val*sign);
 			}
 
 			break;
 
 
-		default:
+		default:	
+			buffer.pop();
 			break;
 	}
 }

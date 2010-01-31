@@ -1,12 +1,12 @@
 #include "sumo.h"
 
-volatile char i = 0;
+volatile char dist_i = 0;
 
 SIGNAL (SIG_ADC)
 {
-	*(dist + i) = (ADCL | (ADCH << 8));
-	if (i++ > 5) i = 0;
-    ADMUX = (0xC0 | i);
+	*(dist + dist_i) = (ADCL | (ADCH << 8));
+	if (dist_i++ > 5) dist_i = 0;
+    ADMUX = (0xC0 | dist_i);
 	ADCSRA |= _BV(ADSC);
 }
 

@@ -3,16 +3,18 @@
 
 class Engine {
 public:
-	Engine();
+	Engine(){}
+	Engine(unsigned char _dir_pin);
 	void stop();
-	void setPower(char power); // power: -100..100
+	void setPower(char p); // power: -100..100
 	char getPower();
 	void invert();
+	int run();
 	
 private:
-	char power;
+	unsigned char dir_pin;
+	volatile char power;
 	char dir;
-	void run();
 };
 
 #endif
