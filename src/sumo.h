@@ -19,7 +19,6 @@
 	void simulate();
 #endif
 
-#include "engine.h"
 #include "queue.h"
 
 #define ITERATION_TIME 100
@@ -65,6 +64,8 @@
 #define clrb(byte, bit) byte &= ~(1 << bit)
 #define negb(byte, bit) byte ^= (1 << bit)
 #define bset(byte, bit) byte & (1 << bit)
+
+
 
 extern bool inverted;
 extern char ground;
