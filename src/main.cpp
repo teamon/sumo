@@ -1,8 +1,7 @@
 #include "sumo.h" //dupa
 
 // global variables
-
-Engine engine[ENGINE_NUM];
+char engine[ENGINE_NUM];
 char ground;
 volatile int dist[DIST_NUM];
 bool inverted = false;
@@ -19,7 +18,6 @@ volatile char debug_wait = 1;
 void setup(){
 	ground_init();
 	ground = 0; // ....0000
-	
 	
 #ifdef DEBUG
 	usart_init();
@@ -38,10 +36,7 @@ void invert(){
 	#ifdef DEBUG
 	if(!debug_invert_enabled) return;
 	#endif
-	
-	engine[ENGINE_LEFT].invert();
-	engine[ENGINE_RIGHT].invert();
-	
+
 	inverted = !inverted;
 }
 
@@ -76,12 +71,10 @@ void escape(){
 		
 		case _BV(GROUND_FRONT_LEFT) | _BV(GROUND_FRONT_RIGHT): // FRONT
 			invert();
-			// Q.push(-100, -100, 10);
-			// Q.push(-100, 100, 20);
-			// Q.push(100, 100, 10);
 		break;
 		
 		case _BV(GROUND_BACK_LEFT) | _BV(GROUND_BACK_RIGHT): // BACK
+			Q.push(100, 100, 5);
 		break;
 		
 		
@@ -113,8 +106,8 @@ void loop(){
 	#endif
 	
 		if(!Q.empty()){
-			engine[ENGINE_LEFT].setPower(Q.front()->left);
-			engine[ENGINE_RIGHT].setPower(Q.front()->right);
+			engine[ENGINE_LEFT] = Q.front()->left;
+			engine[ENGINE_RIGHT] = Q.front()->right;
 			Q.decrement(1);
 		} else {
 			Q.push(70, 50, 50);

@@ -32,7 +32,7 @@ void usart_write_string(char *string) {
 void usart_write_number(long number){
 	// negative numbers
 	if(number < 0) usart_write_byte('-');
-	number = abs(number);
+	number = _abs(number);
 	
 	long a = 1000000000;
 	long b = 999999999;

@@ -46,7 +46,7 @@ void debug_send_state(){
 	}
 
 	for(int i=0; i<ENGINE_NUM; i++){
-		usart_write_number(engine[i].getPower());
+		usart_write_number(engine[i]);
 		usart_write_byte(':');
 	}
 
@@ -103,7 +103,7 @@ void debug_parse_input(){
 					buffer.pop();
 				}
 				
-				engine[char2int(eid)].setPower(val*sign);
+				engine[char2int(eid)] = val*sign;
 			}
 
 			break;

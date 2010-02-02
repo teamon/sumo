@@ -48,10 +48,6 @@
 	#define ENGINE_DIR_PORT PORTD
 	#define ENGINE_0_DIR_PIN 2
 	#define ENGINE_1_DIR_PIN 3
-	#define ENGINE_FW_PORT PORTD
-	#define ENGINE_FW_DDR DDRD
-	#define ENGINE_0_FW_PIN 6
-	#define ENGINE_1_FW_PIN 7
 
 	#define GROUND_DDR DDRB
 	#define GROUND_PORT PORTB
@@ -70,9 +66,9 @@
 #define negb(byte, bit) byte ^= (1 << bit)
 #define bset(byte, bit) byte & (1 << bit)
 
-extern char ground; // [ 0 | 0 | 0 | 0 | G3 | G2 | G1 | G0 ]
-// check ground with: ground == _BV(GROUNT_FRONT_LEFT)
-extern Engine engine[ENGINE_NUM];
+extern bool inverted;
+extern char ground;
+extern char engine[ENGINE_NUM];
 extern volatile int dist[DIST_NUM];
 
 // engine.cpp
