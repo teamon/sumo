@@ -4,17 +4,18 @@
 class Engine {
 public:
 	Engine(){}
-	Engine(unsigned char _dir_pin);
+	Engine(int pin);
 	void stop();
 	void setPower(char p); // power: -100..100
 	char getPower();
 	void invert();
 	int run();
 	
-private:
-	unsigned char dir_pin;
+private:	
+	int __;
 	volatile char power;
 	char dir;
+	int dirpin;
 };
 
 #endif

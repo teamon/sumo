@@ -1,15 +1,15 @@
 #include "sumo.h"
 #include "engine.h"
 
-ISR (TIMER1_OVF_vect)           
+ISR (TIMER1_OVF_vect)
 {
 	ENGINE_0_OCR = engine[0].run();
 	ENGINE_1_OCR = engine[1].run();
 }
 
 void engine_init(){
-	engine[0] = Engine(ENGINE_0_DIR_PIN);
-	engine[1] = Engine(ENGINE_1_DIR_PIN);
+	engine[0] = Engine(2);
+	engine[1] = Engine(3);
 	
 	TCCR1A = _BV(COM1A1) |  _BV(COM1B1) | _BV(WGM11) | _BV(WGM10);
 	TCCR1B |= _BV(CS11); // preskaler clk/8
@@ -29,9 +29,9 @@ void engine_init(){
 	TIMSK = _BV(TOIE1);
 }
 
-Engine::Engine(unsigned char _dir_pin){
+Engine::Engine(int pin){
 	dir = 1;
-	dir_pin = _dir_pin;
+	dirpin = pin;
 	power = 0;
 }
 
@@ -52,10 +52,10 @@ int Engine::run(){
 	char p;
 	
 	if(power * dir > 0){
-		clrb(ENGINE_PORT, dir_pin);
+		clrb(ENGINE_PORT, dirpin);
 		p = power;
 	} else {
-		setb(ENGINE_PORT, dir_pin);
+		setb(ENGINE_PORT, dirpin);
 		p = -power;
 	}
 	

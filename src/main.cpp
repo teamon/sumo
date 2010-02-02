@@ -25,9 +25,9 @@ void setup(){
 	usart_init();
 #endif
 
-#ifdef AVR
-	engine_init();
+#ifdef AVR	
 	dist_init();
+	engine_init();
 
 	sei(); // always at the end
 #endif
@@ -130,31 +130,12 @@ void loop(){
 int main(void){
 	setup();
 	
-	// #ifdef DEBUG
-	// while(debug_wait);
-	// #endif
-	
-	char dupa = 0;
-	
-	
-	// volatile uint16_t * a = &ENGINE_0_OCR;
-	// volatile uint16_t * b = &ENGINE_1_OCR;
+	#ifdef DEBUG
+	while(debug_wait);
+	#endif
 
 	for(;;){
-		// loop();
-		
-		// OCR1A = i*10;
-		// OCR1B = i*10;
-		
-		// *a = i*10;
-		engine[0].setPower(dupa);
-		engine[1].setPower(100-dupa);
-		
-		
-		if(dupa++ > 102) dupa = 0;
-		// _delay_ms(ITERATION_TIME);
-		// _delay_ms(ITERATION_TIME);
-		// _delay_ms(ITERATION_TIME);
+		loop();
 		_delay_ms(ITERATION_TIME);
 	}
 	return 0;
