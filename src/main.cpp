@@ -1,7 +1,7 @@
 #include "sumo.h" //dupa
 
 // global variables
-char engine[ENGINE_NUM];
+char SUMO::engine[] = {0, 0};
 char ground;
 volatile int dist[DIST_NUM];
 bool inverted = false;
@@ -96,6 +96,7 @@ void loop(){
 	debug_send_state();
 	debug_parse_input();
 	#endif
+
 	
 	if(inverted) ground = (ground >> 2) | (ground << 2) & (0x0F); // 0000abcd => 0000cdab
 	
@@ -106,8 +107,8 @@ void loop(){
 	#endif
 	
 		if(!Q.empty()){
-			engine[ENGINE_LEFT] = Q.front()->left;
-			engine[ENGINE_RIGHT] = Q.front()->right;
+			SUMO::engine[ENGINE_LEFT] = Q.front()->left;
+			SUMO::engine[ENGINE_RIGHT] = Q.front()->right;
 			Q.decrement(1);
 		} else {
 			Q.push(70, 50, 50);

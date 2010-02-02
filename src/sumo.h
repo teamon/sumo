@@ -69,7 +69,12 @@
 
 extern bool inverted;
 extern char ground;
-extern char engine[ENGINE_NUM];
+
+class SUMO {
+public:
+	static char engine[5];
+};
+
 extern volatile int dist[DIST_NUM];
 
 // engine.cpp

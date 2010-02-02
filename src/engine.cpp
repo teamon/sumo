@@ -7,16 +7,16 @@ inline void engine_change_dir(char power, unsigned char pin){
 
 ISR (TIMER1_OVF_vect)
 {
-	ENGINE_0_OCR = _abs(engine[0]) * 10;
-	ENGINE_1_OCR = _abs(engine[1]) * 10;
+	ENGINE_0_OCR = _abs(SUMO::engine[0]) * 10;
+	ENGINE_1_OCR = _abs(SUMO::engine[1]) * 10;
 
-	engine_change_dir(engine[0], ENGINE_0_DIR_PIN);
-	engine_change_dir(engine[1], ENGINE_1_DIR_PIN);
+	engine_change_dir(SUMO::engine[0], ENGINE_0_DIR_PIN);
+	engine_change_dir(SUMO::engine[1], ENGINE_1_DIR_PIN);
 }
 
 void engine_init(){
-	engine[0] = 0;
-	engine[1] = 0;
+	SUMO::engine[0] = 0;
+	SUMO::engine[1] = 0;
 
 	TCCR1A = _BV(COM1A1) |  _BV(COM1B1) | _BV(WGM11) | _BV(WGM10);
 	TCCR1B |= _BV(CS11); // preskaler clk/8
