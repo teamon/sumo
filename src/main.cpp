@@ -16,19 +16,15 @@ volatile char debug_wait = 1;
 #endif
 
 void setup(){
-	ground_init();
-	
 #ifdef DEBUG
 	usart_init();
 #endif
 
-#ifdef AVR	
+	ground_init();
 	dist_init();
 	engine_init();
 
 	sei(); // always at the end
-#endif
-
 }
 
 void invert(){
@@ -87,10 +83,6 @@ void escape(){
 }
 
 void loop(){
-	#ifndef AVR
-	simulate();
-	#endif
-	
 	#ifdef DEBUG
 	debug_send_state();
 	debug_parse_input();

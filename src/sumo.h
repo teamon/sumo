@@ -1,23 +1,11 @@
 #ifndef SUMO_H_
 #define SUMO_H_
 
-#define _abs(x) ( ((x) < 0) ? (-(x)) : (x) )
-
-#ifdef AVR
-	#include <avr/io.h>
-	#include <avr/iom32.h>
-	#include <avr/interrupt.h>
-	#include <util/delay.h>
-	#include <stdlib.h>
-#else
-	#include <iostream>
-	
-	#define _delay_ms(x) 
-	#define D(x) std::cout << x << std::endl
-	#define _BV(x) (1 << x)
-	
-	void simulate();
-#endif
+#include <avr/io.h>
+#include <avr/iom32.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include <stdlib.h>
 
 #include "queue.h"
 
@@ -36,28 +24,25 @@
 
 #define DIST_NUM 6
 
-#ifdef AVR
-	#define ENGINE_DDR DDRD
-	#define ENGINE_PORT PORTD
-	#define ENGINE_0_PIN 4
-	#define ENGINE_1_PIN 5
-	#define ENGINE_0_OCR OCR1B // PD4
-	#define ENGINE_1_OCR OCR1A // PD5
-	#define ENGINE_DIR_DDR DDRD
-	#define ENGINE_DIR_PORT PORTD
-	#define ENGINE_0_DIR_PIN 2
-	#define ENGINE_1_DIR_PIN 3
+#define ENGINE_DDR DDRD
+#define ENGINE_PORT PORTD
+#define ENGINE_0_PIN 4
+#define ENGINE_1_PIN 5
+#define ENGINE_0_OCR OCR1B // PD4
+#define ENGINE_1_OCR OCR1A // PD5
+#define ENGINE_DIR_DDR DDRD
+#define ENGINE_DIR_PORT PORTD
+#define ENGINE_0_DIR_PIN 2
+#define ENGINE_1_DIR_PIN 3
 
-	#define GROUND_DDR DDRB
-	#define GROUND_PORT PORTB
-	#define GROUND_0_PIN 0
-	#define GROUND_1_PIN 1
-	#define GROUND_2_PIN 2
-	#define GROUND_3_PIN 3
-	
-	#define DIST_DDR DDRA
-#endif
+#define GROUND_DDR DDRB
+#define GROUND_PORT PORTB
+#define GROUND_0_PIN 0
+#define GROUND_1_PIN 1
+#define GROUND_2_PIN 2
+#define GROUND_3_PIN 3
 
+#define DIST_DDR DDRA
 
 // macros
 #define setb(byte, bit) byte |= (1 << bit)
@@ -65,6 +50,7 @@
 #define negb(byte, bit) byte ^= (1 << bit)
 #define bset(byte, bit) byte & (1 << bit)
 
+#define _abs(x) ( ((x) < 0) ? (-(x)) : (x) )
 
 class SUMO {
 public:
