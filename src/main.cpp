@@ -2,9 +2,9 @@
 
 // global variables
 char SUMO::engine[] = {0, 0};
-char ground;
-volatile int dist[DIST_NUM];
-bool inverted = false;
+volatile int SUMO::dist[] = {0,0,0,0,0,0};
+char SUMO::ground = 0;
+bool SUMO::inverted = false;
 Queue Q;
 
 #ifdef DEBUG
@@ -17,7 +17,6 @@ volatile char debug_wait = 1;
 
 void setup(){
 	ground_init();
-	ground = 0; // ....0000
 	
 #ifdef DEBUG
 	usart_init();
@@ -37,19 +36,19 @@ void invert(){
 	if(!debug_invert_enabled) return;
 	#endif
 
-	inverted = !inverted;
+	SUMO::inverted = !SUMO::inverted;
 }
 
 void escape(){
 	#ifdef DEBUG
-	ground &= debug_ground_enabled;
+	SUMO::ground &= debug_ground_enabled;
 	#endif
 	
-	if(ground == 0) return;
+	if(SUMO::ground == 0) return;
 	
 	Q.clear();
 	
-	switch(ground){
+	switch(SUMO::ground){
 		case _BV(GROUND_FRONT_LEFT):
 			invert();
 		break;
@@ -98,7 +97,7 @@ void loop(){
 	#endif
 
 	
-	if(inverted) ground = (ground >> 2) | (ground << 2) & (0x0F); // 0000abcd => 0000cdab
+	if(SUMO::inverted) SUMO::ground = (SUMO::ground >> 2) | (SUMO::ground << 2) & (0x0F); // 0000abcd => 0000cdab
 	
 	escape();
 	

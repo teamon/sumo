@@ -9,5 +9,5 @@ void ground_init(){
 }
 
 void ground_get(){
-	ground = (GROUND_PORT & 0xF);
+	SUMO::ground = (GROUND_PORT & 0xF);
 }

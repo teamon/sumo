@@ -35,7 +35,7 @@ void debug(int c){
 
 void debug_send_state(){
 	for(int i=0; i<GROUND_NUM; i++){
-		if(ground & _BV(i)) usart_write_byte('1');
+		if(SUMO::ground & _BV(i)) usart_write_byte('1');
 		else usart_write_byte('0');
 		usart_write_byte(':');
 	}

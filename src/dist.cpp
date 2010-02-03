@@ -4,7 +4,7 @@ volatile char dist_i = 0;
 
 ISR(ADC_vect)
 {
-	*(dist + dist_i) = (ADCL | (ADCH << 8));
+	*(SUMO::dist + dist_i) = (ADCL | (ADCH << 8));
 	if (++dist_i > 5) dist_i = 0;
 	ADMUX = (0xC0 | dist_i);
 	ADCSRA |= _BV(ADSC);

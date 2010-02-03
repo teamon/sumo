@@ -66,16 +66,14 @@
 #define bset(byte, bit) byte & (1 << bit)
 
 
-
-extern bool inverted;
-extern char ground;
-
 class SUMO {
 public:
 	static char engine[5];
+	static bool inverted;
+	static char ground;
+	static volatile int dist[DIST_NUM];
 };
 
-extern volatile int dist[DIST_NUM];
 
 // engine.cpp
 void engine_init();

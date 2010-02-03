@@ -1,7 +1,7 @@
 #include "sumo.h"
 
 inline void engine_change_dir(char power, unsigned char pin){
-	if((inverted ? -power : power) >= 0) setb(ENGINE_DIR_PORT, pin);
+	if((SUMO::inverted ? -power : power) >= 0) setb(ENGINE_DIR_PORT, pin);
 	else clrb(ENGINE_DIR_PORT, pin);
 }
 
