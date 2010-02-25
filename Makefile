@@ -12,7 +12,7 @@ AVR_OBJECTS = $(patsubst %,out/%,$(OBJECTS))
 
 ifdef DEBUG
 	CCAVR += -DDEBUG=1
-	AVR_OBJECTS += $(patsubst %,out/avr/%,debug/usart.o debug/buffer.o debug/debug.o)
+	AVR_OBJECTS += $(patsubst %,out/%,debug/usart.o debug/buffer.o debug/debug.o)
 endif
 
 all: avr
@@ -47,4 +47,4 @@ mkdirs:
 
 clean:
 	rm -f main main.hex
-	rm -rf out/avr/*
+	rm -rf out/*

@@ -41,7 +41,7 @@ void debug_send_state(){
 	}
 	
 	for(int i=0; i<DIST_NUM; i++){
-		usart_write_number(dist[i]);
+		usart_write_number(SUMO::dist[i]);
 		usart_write_byte(':');
 	}
 
