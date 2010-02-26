@@ -102,7 +102,7 @@ void loop(){
 			SUMO::engine[ENGINE_RIGHT] = Q.front()->right;
 			Q.decrement(1);
 		} else {
-			Q.push(70, 50, 50);
+			//Q.push(70, 50, 50);
 		}
 		
 	#ifdef DEBUG
