@@ -10,10 +10,10 @@ CCAVR       = avr-g++ -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 OBJECTS     = main.o engine.o queue.o dist.o ground.o
 AVR_OBJECTS = $(patsubst %,out/%,$(OBJECTS))
 
-ifdef DEBUG
+# ifdef DEBUG
 	CCAVR += -DDEBUG=1
 	AVR_OBJECTS += $(patsubst %,out/%,debug/usart.o debug/buffer.o debug/debug.o)
-endif
+# endif
 
 all: avr
 

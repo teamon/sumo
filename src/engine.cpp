@@ -1,8 +1,13 @@
 #include "sumo.h"
 
-inline void engine_change_dir(char power, unsigned char pin){
-	if((SUMO::inverted ? -power : power) >= 0) setb(ENGINE_DIR_PORT, pin);
-	else clrb(ENGINE_DIR_PORT, pin);
+inline void engine_change_dir(char power, unsigned char pin0, unsigned char pin1){
+	if((SUMO::inverted ? -power : power) >= 0) {
+		setb(ENGINE_DIR_PORT, pin0);
+		clrb(ENGINE_DIR_PORT, pin1);
+	} else {
+		clrb(ENGINE_DIR_PORT, pin0);
+		setb(ENGINE_DIR_PORT, pin1);
+	} 
 }
 
 ISR (TIMER1_OVF_vect)
@@ -10,8 +15,8 @@ ISR (TIMER1_OVF_vect)
 	ENGINE_0_OCR = _abs(SUMO::engine[0]) * 10;
 	ENGINE_1_OCR = _abs(SUMO::engine[1]) * 10;
 
-	engine_change_dir(SUMO::engine[0], ENGINE_0_DIR_PIN);
-	engine_change_dir(-SUMO::engine[1], ENGINE_1_DIR_PIN);
+	engine_change_dir(SUMO::engine[0], ENGINE_0_DIR_PIN_0, ENGINE_0_DIR_PIN_1);
+	engine_change_dir(-SUMO::engine[1], ENGINE_1_DIR_PIN_0, ENGINE_1_DIR_PIN_1);
 }
 
 void engine_init(){
@@ -26,8 +31,10 @@ void engine_init(){
 
 	setb(ENGINE_DDR, ENGINE_0_PIN);
 	setb(ENGINE_DDR, ENGINE_1_PIN);
-	setb(ENGINE_DIR_DDR, ENGINE_0_DIR_PIN);
-	setb(ENGINE_DIR_DDR, ENGINE_1_DIR_PIN);
+	setb(ENGINE_DIR_DDR, ENGINE_0_DIR_PIN_0);
+	setb(ENGINE_DIR_DDR, ENGINE_0_DIR_PIN_1);
+	setb(ENGINE_DIR_DDR, ENGINE_1_DIR_PIN_0);
+	setb(ENGINE_DIR_DDR, ENGINE_1_DIR_PIN_1);
 	
 	TIMSK = _BV(TOIE1);
 }
