@@ -116,7 +116,7 @@ int main(void){
 	setup();
 	
 	#ifdef DEBUG
-	while(debug_wait);
+	//while(debug_wait);
 	#endif
 
 	for(;;){

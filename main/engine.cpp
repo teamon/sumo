@@ -15,7 +15,7 @@ ISR (TIMER1_OVF_vect)
 	ENGINE_0_OCR = _abs(SUMO::engine[0]) * 10;
 	ENGINE_1_OCR = _abs(SUMO::engine[1]) * 10;
 
-	engine_change_dir(SUMO::engine[0], ENGINE_0_DIR_PIN_0, ENGINE_0_DIR_PIN_1);
+	engine_change_dir( SUMO::engine[0], ENGINE_0_DIR_PIN_0, ENGINE_0_DIR_PIN_1);
 	engine_change_dir(-SUMO::engine[1], ENGINE_1_DIR_PIN_0, ENGINE_1_DIR_PIN_1);
 }
 
