@@ -1,4 +1,2 @@
 .DS_Store
-out/*
-main
-main.hex
+**/main.hex
