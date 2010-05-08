@@ -98,8 +98,7 @@ void loop(){
 	#endif
 	
 		if(!Q.empty()){
-			SUMO::engine[ENGINE_LEFT] = Q.front()->left;
-			SUMO::engine[ENGINE_RIGHT] = Q.front()->right;
+			engine_set_power(Q.front()->left, Q.front()->right);
 			Q.decrement(1);
 		} else {
 			//Q.push(70, 50, 50);

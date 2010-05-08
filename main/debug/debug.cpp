@@ -103,7 +103,8 @@ void debug_parse_input(){
 					buffer.pop();
 				}
 				
-				SUMO::engine[char2int(eid)] = val*sign;
+				if(char2int(eid) == 1) engine_set_power(SUMO::engine[0], val*sign);
+				else engine_set_power(val*sign, SUMO::engine[1]);
 			}
 
 			break;

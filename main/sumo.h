@@ -26,10 +26,10 @@
 
 #define ENGINE_DDR DDRD
 #define ENGINE_PORT PORTD
-#define ENGINE_0_PIN 4
-#define ENGINE_1_PIN 5
-#define ENGINE_0_OCR OCR1B // PD4
-#define ENGINE_1_OCR OCR1A // PD5
+#define ENGINE_0_PIN 5
+#define ENGINE_1_PIN 4
+#define ENGINE_0_OCR OCR1A // PD4
+#define ENGINE_1_OCR OCR1B // PD5
 #define ENGINE_DIR_DDR DDRB
 #define ENGINE_DIR_PORT PORTB
 #define ENGINE_0_DIR_PIN_0 0
@@ -65,6 +65,7 @@ public:
 
 // engine.cpp
 void engine_init();
+void engine_set_power(char p0, char p1);
 
 //dist
 void dist_init ();
