@@ -20,7 +20,7 @@ FUSES      = -U hfuse:w:0xd9:m -U lfuse:w:0x24:m
 
 # Tune the lines below only if you know what you are doing:
 
-AVRDUDE = $(TOOLS)avrdude $(PROGRAMMER) -p $(DEVICE)
+AVRDUDE = $(TOOLS)avrdude $(PROGRAMMER) -p $(DEVICE) -V
 CC      = $(TOOLS)avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 CXX     = $(TOOLS)avr-g++ -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 

@@ -1,5 +1,5 @@
 #include "os.h"
 
-//OS::OS(){
-	//initEngines();
-//}
+void OS::init(){
+	initEngines();
+}

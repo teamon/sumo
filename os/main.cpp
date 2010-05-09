@@ -3,13 +3,14 @@
 #include "os.h"
 #include "debug.h"
 
-//OS os;
+OS os;
 
 int main(void){
+	os.init();
 	sei();
 	
     for(;;){
-		//debug_console();
+		debug_console();
 		
 		//os.run();
     }

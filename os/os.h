@@ -7,22 +7,22 @@
 #define negb(byte, bit) byte ^= (1 << bit)
 #define bset(byte, bit) byte & (1 << bit)
 
-//#define _abs(x) ( ((x) < 0) ? (-(x)) : (x) )
-//#define _min(a,b) ( ((a) > (b)) ? (b) : (a) )
-//class OS {
-//public:
-//	// initializers
-//	OS();
-//	
-//	// engines.cpp
-//	void initEngines();
-//	void run();
-//	
-//	
-//	volatile int engine[0];
-//	volatile int _prev_engine[2];
-//};
-//
-//extern OS os;
+#define _abs(x) ( ((x) < 0) ? (-(x)) : (x) )
+#define _min(a,b) ( ((a) > (b)) ? (b) : (a) )
+class OS {
+public:
+	// initializers
+	void init();
+	
+	// engines.cpp
+	void initEngines();
+	void run();
+	
+	
+	volatile int engine[0];
+	volatile int _prev_engine[2];
+};
+
+extern OS os;
 
 #endif

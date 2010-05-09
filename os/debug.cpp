@@ -10,7 +10,6 @@ ISR(USART_RXC_vect){
 	int c;
 	c = UDR;
 	uart.push(c);
-	dbg("got", c);
 }
 
 int char2hex(char c){
@@ -76,7 +75,7 @@ void debug_parse_package(){
 		
 		switch(code){
 			case 0xE0:
-				//os.engine[0] = hex_arg(pack, 0, 3);
+				os.engine[0] = hex_arg(pack, 0, 3);
 				uart << "power = " << hex_arg(pack, 0, 3) << EOP;
 				break;
 				
