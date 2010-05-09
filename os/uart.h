@@ -3,6 +3,8 @@
 
 #include "buffer.h"
 
+#define EOP "\r\n"
+
 class Uart {
 public:
 	Uart();
@@ -11,7 +13,9 @@ public:
 	void sendByte(unsigned char byte);
 	void push(char byte);
 	Uart & operator<<(char * string);
-private:
+	Uart & operator<<(const int number);
+	Uart & Uart::operator<<(const char byte);
+//private:
 	Buffer buf;
 };
 

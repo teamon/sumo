@@ -35,8 +35,20 @@ char * Uart::package(){
 	return pack;
 }
 
+Uart & Uart::operator<<(const char byte){
+	sendByte(byte);
+	return *this;
+}
+
 Uart & Uart::operator<<(char * string){
 	while (*string != '\0') sendByte(*string++);
+	return *this;
+}
+
+Uart & Uart::operator<<(const int number){
+	char str[10];
+	itoa(number, str, 10);
+	*this << str;
 	return *this;
 }
 
