@@ -7,6 +7,8 @@
 #include <util/delay.h>
 #include <stdlib.h>
 
+#include "../../../avr/lib/usart/usart.h"
+
 #include "queue.h"
 
 #define ITERATION_TIME 100
@@ -82,7 +84,9 @@ void ground_get();
 // debug.cpp
 void debug_init();
 void debug_send_state();
+void debug_parse_input();
 
+void debug(char * c);
 void debug(char c);
 void debug(int c);
 
@@ -90,7 +94,9 @@ extern char debug_dist_enabled;
 extern char debug_ground_enabled;
 extern char debug_manual_engine_mode;
 extern char debug_invert_enabled;
+extern volatile char debug_got_input;
 extern volatile char debug_wait;
+extern Usart32 usb;
 
 extern Queue Q;
 

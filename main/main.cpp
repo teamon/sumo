@@ -10,8 +10,9 @@ Queue Q;
 #ifdef DEBUG
 char debug_dist_enabled = (0xFF >> (8-DIST_NUM));
 char debug_ground_enabled = (0xFF >> (8-GROUND_NUM));
-char debug_manual_engine_mode = 0;
+char debug_manual_engine_mode = 1;
 char debug_invert_enabled = 1;
+volatile char debug_got_input = 0;
 volatile char debug_wait = 1;
 #endif
 
@@ -85,6 +86,12 @@ void escape(){
 void loop(){
 	#ifdef DEBUG
 	debug_send_state();
+	
+	if(debug_got_input) {
+		debug_parse_input();
+		debug_got_input--;
+	}
+	
 	#endif
 
 	
@@ -97,9 +104,11 @@ void loop(){
 	#endif
 	
 		if(!Q.empty()){
+			usb << "[usb] Queue: " << (int)Q.front()->left << "," << (int)Q.front()->right << " time left: " << (int)Q.front()->time << "\n\r";
 			engine_set_power(Q.front()->left, Q.front()->right);
 			Q.decrement(1);
 		} else {
+			engine_set_power(0, 0);
 			//Q.push(70, 50, 50);
 		}
 		

@@ -16,12 +16,17 @@
 		6F16BFE31195C40A00C7AA5C /* queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
 		6F16BFE41195C40A00C7AA5C /* sumo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sumo.h; sourceTree = "<group>"; };
 		6F81F55A11970F4D0036419D /* debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug.cpp; sourceTree = "<group>"; };
+		6F81F63611971A4F0036419D /* buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffer.cpp; sourceTree = "<group>"; };
+		6F81F63711971A4F0036419D /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
+		6F81F63911971A4F0036419D /* usart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = usart.cpp; sourceTree = "<group>"; };
+		6F81F63A11971A4F0036419D /* usart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usart.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		4079523B0CEA382200E202DC = {
 			isa = PBXGroup;
 			children = (
+				6F81F63511971A4F0036419D /* usart */,
 				6F1570CA11945034002B8DE0 /* Source */,
 				6F546C1B1175EEB5002D05D4 /* Products */,
 			);
@@ -49,6 +54,18 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		6F81F63511971A4F0036419D /* usart */ = {
+			isa = PBXGroup;
+			children = (
+				6F81F63611971A4F0036419D /* buffer.cpp */,
+				6F81F63711971A4F0036419D /* buffer.h */,
+				6F81F63911971A4F0036419D /* usart.cpp */,
+				6F81F63A11971A4F0036419D /* usart.h */,
+			);
+			name = usart;
+			path = ../../../avr/lib/usart;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 

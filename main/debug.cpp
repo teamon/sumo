@@ -1,17 +1,20 @@
 #include "sumo.h"
 #include "../../../avr/lib/usart/usart.h"
 
-void debug_parse_input();
+void debug_notify();
 
 USART32(usb);
 
 void debug_init(){
-	usb.setCallback(debug_parse_input);
+	usb.setCallback(debug_notify);
+}
+
+void debug_notify(){
+	debug_got_input++;
 }
 
 void debug_parse_input(){
-	unsigned char cmd;
-	usb >> cmd;
+	unsigned char cmd = usb.read();
 	
 	if(cmd == '*'){
 		asm("cli");
@@ -25,6 +28,8 @@ void debug_parse_input(){
 		
 		int id, value;
 		
+		usb << "cmd=" << cmd << "\n\r";
+				
 		switch(cmd){
 			case 'G': // Ground sensors | G:#:(0|1)
 				id = usb.readInt();
@@ -64,15 +69,12 @@ void debug_parse_input(){
 				int time = usb.readInt();
 				
 				Q.push(e0, e1, time);
-				usb << "@\n";
 				break;
 				
 		}
 	}
-	
-
-	
-	usb.clear();
+		
+	usb.clearUntil('\n');
 }
 
 void debug_send_state(){
@@ -83,22 +85,24 @@ void debug_send_state(){
 		usb << SUMO::dist[i] << ':';
 		
 	for(int i=0; i<ENGINE_NUM; i++)
-		usb << SUMO::engine[i] << ':';
+		usb << (int)SUMO::engine[i] << ':';
 		
-	usb << debug_ground_enabled << '-';
-	usb << debug_dist_enabled << '-';
-	usb << debug_manual_engine_mode << '\n';
+	usb << (int)debug_ground_enabled << '-';
+	usb << (int)debug_dist_enabled << '-';
+	usb << (int)debug_manual_engine_mode << '\n';
 }
 
 
+void debug(char * c){
+	usb << "[dbg] " << c << '\n';
+}
 
-
-void debug(char c){
-	usb << '^' << c << '\n';
+void debug(char c ){
+	usb << "[dbg]" << c << '\n';
 }
 
 void debug(int c){
-	usb << '^' << c << '\n';
+	usb << "[dbg] " << c << '\n';
 }
 
 

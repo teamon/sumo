@@ -35,12 +35,11 @@ void engine_init(){
 void engine_set_power(char p0, char p1){
 	if(SUMO::engine[0] * p0 < 0) {
 		ENGINE_0_OCR = 0;
-		_delay_ms(50);
 	}
 	if(SUMO::engine[1] * p1 < 0) {
 		ENGINE_1_OCR = 0;
-		_delay_ms(50);
 	}
+	_delay_ms(50);
 	
 	
 	engine_change_dir( p0, ENGINE_0_DIR_PIN_0, ENGINE_0_DIR_PIN_1);
