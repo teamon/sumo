@@ -11,6 +11,7 @@
 # FUSES ........ Parameters for avrdude to flash the fuses appropriately.
 
 TOOLS      = /usr/local/CrossPack-AVR/bin/
+LIBDIR     = ../../../avr/lib
 
 DEVICE     = atmega32
 CLOCK      = 8000000
@@ -26,7 +27,7 @@ CXX     = $(TOOLS)avr-g++ -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 # ifdef DEBUG
 CXX += -DDEBUG=1
-OBJECTS += debug/usart.o debug/buffer.o debug/debug.o
+OBJECTS += $(LIBDIR)/usart/usart.o $(LIBDIR)/usart/buffer.o debug.o
 # endif
 
 # symbolic targets:

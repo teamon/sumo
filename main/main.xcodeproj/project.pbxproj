@@ -9,16 +9,13 @@
 /* Begin PBXFileReference section */
 		6F1570C811945030002B8DE0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6F1570C911945030002B8DE0 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		6F16BFDB1195C40A00C7AA5C /* buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffer.cpp; sourceTree = "<group>"; };
-		6F16BFDC1195C40A00C7AA5C /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
-		6F16BFDD1195C40A00C7AA5C /* debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug.cpp; sourceTree = "<group>"; };
-		6F16BFDE1195C40A00C7AA5C /* usart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = usart.cpp; sourceTree = "<group>"; };
 		6F16BFDF1195C40A00C7AA5C /* dist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dist.cpp; sourceTree = "<group>"; };
 		6F16BFE01195C40A00C7AA5C /* engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engine.cpp; sourceTree = "<group>"; };
 		6F16BFE11195C40A00C7AA5C /* ground.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ground.cpp; sourceTree = "<group>"; };
 		6F16BFE21195C40A00C7AA5C /* queue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = queue.cpp; sourceTree = "<group>"; };
 		6F16BFE31195C40A00C7AA5C /* queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
 		6F16BFE41195C40A00C7AA5C /* sumo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sumo.h; sourceTree = "<group>"; };
+		6F81F55A11970F4D0036419D /* debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -33,7 +30,7 @@
 		6F1570CA11945034002B8DE0 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				6F16BFDA1195C40A00C7AA5C /* debug */,
+				6F81F55A11970F4D0036419D /* debug.cpp */,
 				6F16BFDF1195C40A00C7AA5C /* dist.cpp */,
 				6F16BFE01195C40A00C7AA5C /* engine.cpp */,
 				6F16BFE11195C40A00C7AA5C /* ground.cpp */,
@@ -44,17 +41,6 @@
 				6F1570C911945030002B8DE0 /* Makefile */,
 			);
 			name = Source;
-			sourceTree = "<group>";
-		};
-		6F16BFDA1195C40A00C7AA5C /* debug */ = {
-			isa = PBXGroup;
-			children = (
-				6F16BFDB1195C40A00C7AA5C /* buffer.cpp */,
-				6F16BFDC1195C40A00C7AA5C /* buffer.h */,
-				6F16BFDD1195C40A00C7AA5C /* debug.cpp */,
-				6F16BFDE1195C40A00C7AA5C /* usart.cpp */,
-			);
-			path = debug;
 			sourceTree = "<group>";
 		};
 		6F546C1B1175EEB5002D05D4 /* Products */ = {

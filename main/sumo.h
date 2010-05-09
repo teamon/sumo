@@ -79,17 +79,9 @@ void ground_get();
 #define char2int(c) (c - 48)
 #define int2char(c) (c + 48)
 
-// usart.cpp
-void usart_init();
-void usart_write_byte(unsigned char byte);
-void usart_write_string(char *string);
-void usart_write_number(long number);
-unsigned char usart_read_byte();
-
 // debug.cpp
+void debug_init();
 void debug_send_state();
-void debug_parse_input();
-void debug_wait_for_input(char c);
 
 void debug(char c);
 void debug(int c);
@@ -99,6 +91,8 @@ extern char debug_ground_enabled;
 extern char debug_manual_engine_mode;
 extern char debug_invert_enabled;
 extern volatile char debug_wait;
+
+extern Queue Q;
 
 #endif
 

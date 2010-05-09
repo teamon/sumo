@@ -17,7 +17,7 @@ volatile char debug_wait = 1;
 
 void setup(){
 #ifdef DEBUG
-	usart_init();
+	debug_init();
 #endif
 
 	ground_init();
@@ -85,11 +85,10 @@ void escape(){
 void loop(){
 	#ifdef DEBUG
 	debug_send_state();
-	debug_parse_input();
 	#endif
 
 	
-	if(SUMO::inverted) SUMO::ground = (SUMO::ground >> 2) | (SUMO::ground << 2) & (0x0F); // 0000abcd => 0000cdab
+	//if(SUMO::inverted) SUMO::ground = (SUMO::ground >> 2) | (SUMO::ground << 2) & (0x0F); // 0000abcd => 0000cdab
 	
 	escape();
 	
