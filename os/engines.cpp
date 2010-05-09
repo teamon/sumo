@@ -2,6 +2,7 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "os.h"
+#include "debug.h"
 
 #define ENGINE_DDR DDRD
 #define ENGINE_PORT PORTD
@@ -37,32 +38,32 @@ void OS::initEngines(){
 }
 
 void OS::run(){
-	if(engine[0] == _prev_engine[0] && engine[1] == _prev_engine[1]) return;
+	//if(engine[0] == _prev_engine[0] && engine[1] == _prev_engine[1]) return; // TODO: check it
 	if(engine[0] * _prev_engine[0] < 0) ENGINE_0_OCR = 0;
 	if(engine[1] * _prev_engine[1] < 0) ENGINE_1_OCR = 0;
 	_delay_ms(50);
 			
 	int e0 = engine[0]*10;
 	int e1 = engine[1]*10;
-	
+		
 	if(e0 > 0){
 		setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
 		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
-		ENGINE_0_OCR = _min(e0, 100);
+		ENGINE_0_OCR = _min(e0, 1000);
 	} else {
 		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
 		setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
-		ENGINE_0_OCR = _min(-e0, 100);
+		ENGINE_0_OCR = _min(-e0, 1000);
 	}
 	
 	if(e1 > 0){
-		setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
-		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
-		ENGINE_0_OCR = _min(e1, 100);
-	} else {
 		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
 		setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
-		ENGINE_0_OCR = _min(-e1, 100);
+		ENGINE_1_OCR = _min(e1, 1000);
+	} else {
+		setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
+		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+		ENGINE_1_OCR = _min(-e1, 1000);
 	}
 	
 	_prev_engine[0] = engine[0];

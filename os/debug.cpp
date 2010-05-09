@@ -76,11 +76,10 @@ void debug_parse_package(){
 		switch(code){
 			case 0xE0:
 				os.engine[0] = hex_arg(pack, 0, 3);
-				uart << "power = " << hex_arg(pack, 0, 3) << EOP;
 				break;
 				
 			case 0xE1:
-				//os.engine[1] = hex_arg(pack, 0, 3);
+				os.engine[1] = hex_arg(pack, 0, 3);
 				break;
 				
 			default:

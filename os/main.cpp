@@ -12,7 +12,7 @@ int main(void){
     for(;;){
 		debug_console();
 		
-		//os.run();
+		os.run();
     }
     return 0;
 }
