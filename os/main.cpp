@@ -1,16 +1,17 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "os.h"
 #include "debug.h"
 
-void init(){
-	
-}
+//OS os;
 
 int main(void){
 	sei();
 	
     for(;;){
-		debug_console();
+		//debug_console();
+		
+		//os.run();
     }
     return 0;
 }

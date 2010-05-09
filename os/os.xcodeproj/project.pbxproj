@@ -15,6 +15,9 @@
 		6FA2617411974548008EC35B /* uart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uart.cpp; sourceTree = "<group>"; };
 		6FA261AB11974AB9008EC35B /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
 		6FA261AC11974AB9008EC35B /* debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug.cpp; sourceTree = "<group>"; };
+		6FA262CE119761C1008EC35B /* os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.h; sourceTree = "<group>"; };
+		6FA262CF119761C1008EC35B /* os.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.cpp; sourceTree = "<group>"; };
+		6FA262D0119762B8008EC35B /* engines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engines.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -32,6 +35,9 @@
 				6FA261A611974A7C008EC35B /* debug */,
 				6F1570C911945030002B8DE0 /* Makefile */,
 				6F1570C811945030002B8DE0 /* main.cpp */,
+				6FA262CE119761C1008EC35B /* os.h */,
+				6FA262CF119761C1008EC35B /* os.cpp */,
+				6FA262D0119762B8008EC35B /* engines.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";

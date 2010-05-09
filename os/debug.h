@@ -3,5 +3,6 @@
 
 void debug_console();
 void debug_parse_package();
+void dbg(char * label, int var);
 
 #endif
