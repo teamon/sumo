@@ -41,11 +41,22 @@ void modbus_error(char * msg){
 	uart << "[ERROR] " << msg << EOP;
 }
 
+void debug_send_state(){
+	for(int i=0; i<4; i++)
+		uart << 0 << ':';
+	//	uart << ground & _BV(i)) << ':';
+	
+	for(int i=0; i<6; i++)
+		uart << os.dist[i] << ':';
+
+	uart << '\n';
+}
+
 void debug_console(){
 	if(uart.awaiting()){
 		debug_parse_package();
 	}
-	
+	debug_send_state();
 }
 
 void dbg(char * label, int num){
@@ -70,9 +81,7 @@ void debug_parse_package(){
 	
 	if(pack[0] == '$' && pack[6] == '\r' && pack[7] == '\n'){
 		int code = char2hex(pack[1])*0x10 + char2hex(pack[2]);
-		
-		dbg("code", code);
-		
+				
 		switch(code){
 			case 0xE0:
 				os.engine[0] = hex_arg(pack, 0, 3);
@@ -90,6 +99,7 @@ void debug_parse_package(){
 		
 	} else {
 		modbus_error("Invalid package");
+		uart.buf.clear();
 	}
 	
 	

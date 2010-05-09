@@ -18,9 +18,13 @@ public:
 	void initEngines();
 	void run();
 	
+	// dist.cpp
+	void initDist();
+	
 	
 	volatile int engine[0];
 	volatile int _prev_engine[2];
+	volatile int dist[6];
 };
 
 extern OS os;

@@ -18,6 +18,7 @@
 		6FA262CE119761C1008EC35B /* os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.h; sourceTree = "<group>"; };
 		6FA262CF119761C1008EC35B /* os.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = os.cpp; sourceTree = "<group>"; };
 		6FA262D0119762B8008EC35B /* engines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = engines.cpp; sourceTree = "<group>"; };
+		6FFB0E3511977C8C006869ED /* dist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dist.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -38,6 +39,7 @@
 				6FA262CE119761C1008EC35B /* os.h */,
 				6FA262CF119761C1008EC35B /* os.cpp */,
 				6FA262D0119762B8008EC35B /* engines.cpp */,
+				6FFB0E3511977C8C006869ED /* dist.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";

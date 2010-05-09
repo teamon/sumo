@@ -2,4 +2,5 @@
 
 void OS::init(){
 	initEngines();
+	initDist();
 }
