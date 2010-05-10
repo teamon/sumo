@@ -1,6 +1,8 @@
 #ifndef _OS_H_
 #define _OS_H_
 
+#include "queue.h"
+
 // macros
 #define setb(byte, bit) byte |= (1 << bit)
 #define clrb(byte, bit) byte &= ~(1 << bit)
@@ -14,13 +16,17 @@ public:
 	// initializers
 	void init();
 	
+	void run();
+	
 	// engines.cpp
 	void initEngines();
-	void run();
+	void runEngines();
 	
 	// dist.cpp
 	void initDist();
 	
+	
+	Queue queue;
 	
 	volatile int engine[0];
 	volatile int _prev_engine[2];

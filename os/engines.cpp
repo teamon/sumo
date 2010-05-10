@@ -37,7 +37,10 @@ void OS::initEngines(){
 	setb(ENGINE_DIR_DDR, ENGINE_1_DIR_PIN_1);
 }
 
-void OS::run(){
+void OS::runEngines(){
+	dbg("engine[0]", engine[0]);
+	dbg("engine[1]", engine[1]);
+	
 	//if(engine[0] == _prev_engine[0] && engine[1] == _prev_engine[1]) return; // TODO: check it
 	if(engine[0] * _prev_engine[0] < 0) ENGINE_0_OCR = 0;
 	if(engine[1] * _prev_engine[1] < 0) ENGINE_1_OCR = 0;
