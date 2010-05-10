@@ -11,6 +11,7 @@
 
 #define _abs(x) ( ((x) < 0) ? (-(x)) : (x) )
 #define _min(a,b) ( ((a) > (b)) ? (b) : (a) )
+
 class OS {
 public:
 	// initializers

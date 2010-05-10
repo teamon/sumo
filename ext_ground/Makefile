@@ -11,7 +11,7 @@
 
 TOOLS      = /usr/local/CrossPack-AVR/bin/
 
-DEVICE     = atmega8
+DEVICE     = attiny26
 CLOCK      = 8000000
 PROGRAMMER = -c stk500v2 -P avrdoper
 OBJECTS    = main.o

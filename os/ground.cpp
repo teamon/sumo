@@ -1,5 +1,4 @@
 #include <avr/io.h>
-
 #include "os.h"
 
 #define GROUND_DDR DDRB

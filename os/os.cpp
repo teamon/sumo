@@ -3,6 +3,7 @@
 void OS::init(){
 	initEngines();
 	initDist();
+	initGround();
 }
 
 void OS::run(){
@@ -10,13 +11,12 @@ void OS::run(){
 		engine[0] = queue.front()->left;
 		engine[1] = queue.front()->right;
 		queue.decrement(1);
+	} else {
+		// default values
+		// engine[0] = 0;
+		// engine[1] = 0;
 	}
-	//else {
-//		// default values
-//		engine[0] = 0;
-//		engine[1] = 0;
-//	}
-//	
-	
+
+
 	runEngines();
 }
