@@ -8,8 +8,7 @@
 class Uart {
 public:
 	Uart();
-	char * package();
-	bool awaiting();
+	char * package(char size);
 	void sendByte(unsigned char byte);
 	void push(char byte);
 	Uart & operator<<(char * string);

@@ -38,8 +38,8 @@ void OS::initEngines(){
 }
 
 void OS::runEngines(){
-	dbg("engine[0]", engine[0]);
-	dbg("engine[1]", engine[1]);
+	//dbg("engine[0]", engine[0]);
+	//dbg("engine[1]", engine[1]);
 	
 	//if(engine[0] == _prev_engine[0] && engine[1] == _prev_engine[1]) return; // TODO: check it
 	if(engine[0] * _prev_engine[0] < 0) ENGINE_0_OCR = 0;

@@ -9,10 +9,10 @@ int main(void){
 	os.init();
 	sei();
 	
-	for(int i = 1; i < 10; i++){
-		os.queue.push(i*10, i*10, 10);
-		os.queue.push(-i*10, -i*10, 10);
-	}
+//	for(int i = 1; i < 10; i++){
+//		os.queue.push(i*10, i*10, 10);
+//		os.queue.push(-i*10, -i*10, 10);
+//	}
 	
 		
     for(;;){

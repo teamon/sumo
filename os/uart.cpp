@@ -22,13 +22,9 @@ void Uart::sendByte(unsigned char byte){
 	UDR = byte;
 }
 
-bool Uart::awaiting(){
-	return buf.size() >= 8;	
-}
-
-char * Uart::package(){
-	char * pack = (char *) malloc(sizeof(char)*8); // 8 bits package
-	for(int i = 0; i<8; i++){
+char * Uart::package(char size){
+	char * pack = (char *) malloc(sizeof(char)*size); // 8 bits package
+	for(int i = 0; i<size; i++){
 		pack[i] = *(buf.front());
 		buf.pop();
 	}
