@@ -14,10 +14,10 @@
 
 class OS {
 public:
-	// initializers
 	void init();
-	
 	void run();
+	void escape();
+	void invert();
 	
 	// engines.cpp
 	void initEngines();
