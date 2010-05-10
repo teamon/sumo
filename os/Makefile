@@ -15,7 +15,8 @@ TOOLS      = /usr/local/CrossPack-AVR/bin/
 DEVICE     = atmega32
 CLOCK      = 8000000
 PROGRAMMER = -c stk500v2 -P avrdoper
-OBJECTS    = main.o queue.o buffer.o uart.o debug.o os.o engines.o dist.o
+OBJECTS    = main.o queue.o os.o engines.o dist.o ground.o
+OBJECTS   += buffer.o uart.o debug.o
 FUSES      = -U hfuse:w:0xd9:m -U lfuse:w:0x24:m
 
 # Tune the lines below only if you know what you are doing:

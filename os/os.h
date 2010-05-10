@@ -25,6 +25,10 @@ public:
 	// dist.cpp
 	void initDist();
 	
+	// ground.cpp
+	void initGround();
+	char ground();
+
 	
 	Queue queue;
 	
