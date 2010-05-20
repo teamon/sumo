@@ -3,7 +3,7 @@ require "serialport"
 
 def hex(s,n)
   i = s.to_i
-  if i > 0
+  if i >= 0
     i.to_s(16).rjust(n, '0')
   else
     ((-i).to_s(2).rjust(n*4, '0').split(//).map {|e| e == '0' ? '1' : '0' }.join.to_i(2) + 1).to_s(16)
@@ -33,6 +33,6 @@ while cmd = readline
   
   args ||= []
   cmd = "$" + fun + args.join.ljust(8, '0') + "\r\n"
-  puts "   sending: " + cmd
+  # puts "   sending: " + cmd
   sp.write cmd
 end

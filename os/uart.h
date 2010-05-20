@@ -13,7 +13,7 @@ public:
 	void push(char byte);
 	Uart & operator<<(char * string);
 	Uart & operator<<(const int number);
-	Uart & Uart::operator<<(const char byte);
+	Uart & operator<<(const char byte);
 //private:
 	Buffer buf;
 };

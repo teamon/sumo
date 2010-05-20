@@ -8,8 +8,6 @@
 
 #define PACKAGE_SIZE 13
 
-
-
 Uart uart;
 
 char _buffer[50];
@@ -69,11 +67,20 @@ void modbus_info(char * msg, ...){
 	uart << "[INFO] " << buf << EOP;
 }
 
+void dbg(char * msg, ...){
+	char buf[50];
+	va_list args;
+	va_start(args, msg);
+	vsprintf(buf, msg, args);
+	va_end(args);
+	uart << "[DBG] " << buf << EOP;
+}
+
 
 void debug_send_state(){
+	char grd = os.ground();
 	for(int i=0; i<4; i++)
-		uart << 0 << ':';
-	//	uart << ground & _BV(i)) << ':';
+		uart << (grd & _BV(i) ? '1' : '0') << ':';
 	
 	for(int i=0; i<6; i++)
 		uart << os.dist[i] << ':';
@@ -88,9 +95,6 @@ void debug_console(){
 	//debug_send_state();
 }
 
-void dbg(char * label, int num){
-	uart << label << ": " << num << EOP;
-}
 
 void debug_parse_package(){
 	char * pack = uart.package(PACKAGE_SIZE);
@@ -128,11 +132,13 @@ void debug_parse_package(){
 				break;
 				
 			case 0xA0:
+			{
 				char e0 = (char)arg(pack, 0, 2);
 				char e1 = (char)arg(pack, 2, 2);
 				int time = (int)arg(pack, 4, 4);
 				os.queue.push(e0, e1, time);
 				modbus_info("Queue push: e0=%d e1=%d time=%d", e0, e1, time);
+			}
 				break;
 				
 			default:

@@ -13,8 +13,8 @@ void OS::run(){
 		queue.decrement(1);
 	} else {
 		// default values
-		// engine[0] = 0;
-		// engine[1] = 0;
+		engine[0] = 0;
+		engine[1] = 0;
 	}
 
 

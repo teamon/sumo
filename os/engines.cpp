@@ -1,5 +1,4 @@
 #include <avr/io.h>
-#include <avr/interrupt.h>
 #include <util/delay.h>
 #include "os.h"
 #include "debug.h"
@@ -16,6 +15,8 @@
 #define ENGINE_0_DIR_PIN_1 1
 #define ENGINE_1_DIR_PIN_0 2
 #define ENGINE_1_DIR_PIN_1 3
+
+#define ENGINE_MAX_POWER 1023
 
 void OS::initEngines(){
 	engine[0] = 0;
@@ -52,21 +53,21 @@ void OS::runEngines(){
 	if(e0 > 0){
 		setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
 		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
-		ENGINE_0_OCR = _min(e0, 1000);
+		ENGINE_0_OCR = _min(e0, ENGINE_MAX_POWER);
 	} else {
 		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
 		setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
-		ENGINE_0_OCR = _min(-e0, 1000);
+		ENGINE_0_OCR = _min(-e0, ENGINE_MAX_POWER);
 	}
 	
 	if(e1 > 0){
 		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
 		setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
-		ENGINE_1_OCR = _min(e1, 1000);
+		ENGINE_1_OCR = _min(e1, ENGINE_MAX_POWER);
 	} else {
 		setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
 		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
-		ENGINE_1_OCR = _min(-e1, 1000);
+		ENGINE_1_OCR = _min(-e1, ENGINE_MAX_POWER);
 	}
 	
 	_prev_engine[0] = engine[0];
