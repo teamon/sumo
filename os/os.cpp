@@ -7,6 +7,8 @@ void OS::init(){
 }
 
 void OS::run(){
+	//escape();
+	
 	if(!queue.empty()){
 		engine[0] = queue.front()->left;
 		engine[1] = queue.front()->right;
@@ -36,11 +38,11 @@ void OS::escape(){
 			break;
 			
 		case 0x04 | 0x08: // back
-			queue.push(100, 100, 5);
+			queue.push(100, 100, 20);
 			break;
 			
 		case 0x04: // back left
-			queue.push(100, 80, 5);
+			queue.push(100, 80, 20);
 			break;
 		
 		case 0x08: // back right

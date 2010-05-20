@@ -21,16 +21,15 @@
 
 #define I_SEE 500
 
-#define ADC_PORT PORTA
-#define OUT_PORT PORTB
-#define OUT_DDR  DDRB
+#define OUT_PORT PORTD
+#define OUT_DDR  DDRD
 
 volatile int i = 0;
 volatile int value;
 
 ISR(ADC_vect){
 	value = (ADCL | (ADCH << 8));
-	if(value > I_SEE) OUT_PORT &= ~(1 << i); // clear bit
+	if(value < I_SEE) OUT_PORT &= ~(1 << i); // clear bit
 	else OUT_PORT |= (1 << i); // set bit
 	if (++i > 3) i = 0;
 	ADMUX = (0xC0 | i); // select ADC channel

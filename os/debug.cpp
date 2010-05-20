@@ -92,7 +92,7 @@ void debug_console(){
 	if(uart.buf.size() >= PACKAGE_SIZE){
 		debug_parse_package();
 	}
-	//debug_send_state();
+	debug_send_state();
 }
 
 

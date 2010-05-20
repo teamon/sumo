@@ -50,7 +50,10 @@ void OS::runEngines(){
 	int e0 = engine[0]*10;
 	int e1 = engine[1]*10;
 		
-	if(e0 > 0){
+	if(e0 == 0){
+		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
+		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+	} else if(e0 > 0){
 		setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
 		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
 		ENGINE_0_OCR = _min(e0, ENGINE_MAX_POWER);
@@ -60,7 +63,10 @@ void OS::runEngines(){
 		ENGINE_0_OCR = _min(-e0, ENGINE_MAX_POWER);
 	}
 	
-	if(e1 > 0){
+	if(e0 == 0){
+		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
+		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+	} else if(e1 > 0){
 		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
 		setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
 		ENGINE_1_OCR = _min(e1, ENGINE_MAX_POWER);

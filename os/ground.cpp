@@ -17,5 +17,5 @@ void OS::initGround(){
 }
 
 char OS::ground(){
-	return (GROUND_PIN & 0xF0) >> 4;
+	return ~((GROUND_PIN & 0xF0) >> 4);
 }
