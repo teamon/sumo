@@ -3,6 +3,6 @@
 
 void debug_console();
 void debug_parse_package();
-void dbg(char * label, ...);
+void dbg(const char * label, ...);
 
 #endif

@@ -36,6 +36,11 @@ Uart & Uart::operator<<(const char byte){
 	return *this;
 }
 
+Uart & Uart::operator<<(const char * string){
+	while (*string != '\0') sendByte(*string++);
+	return *this;
+}
+
 Uart & Uart::operator<<(char * string){
 	while (*string != '\0') sendByte(*string++);
 	return *this;

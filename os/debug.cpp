@@ -54,11 +54,11 @@ int arg(char * pack, char start, char len){
 	return res;
 }
 
-void modbus_error(char * msg){
+void modbus_error(const char * msg){
 	uart << "[ERROR] " << msg << EOP;
 }
 
-void modbus_info(char * msg, ...){
+void modbus_info(const char * msg, ...){
 	char buf[50];
 	va_list args;
 	va_start(args, msg);
@@ -67,7 +67,7 @@ void modbus_info(char * msg, ...){
 	uart << "[INFO] " << buf << EOP;
 }
 
-void dbg(char * msg, ...){
+void dbg(const char * msg, ...){
 	char buf[50];
 	va_list args;
 	va_start(args, msg);

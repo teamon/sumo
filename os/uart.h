@@ -12,6 +12,7 @@ public:
 	void sendByte(unsigned char byte);
 	void push(char byte);
 	Uart & operator<<(char * string);
+	Uart & operator<<(const char * string);
 	Uart & operator<<(const int number);
 	Uart & operator<<(const char byte);
 //private:
