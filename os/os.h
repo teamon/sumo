@@ -28,7 +28,7 @@ public:
 	
 	// ground.cpp
 	void initGround();
-	char ground();
+	unsigned char ground();
 
 	
 	Queue queue;
@@ -36,6 +36,7 @@ public:
 	volatile int engine[0];
 	volatile int _prev_engine[2];
 	volatile int dist[6];
+	bool inverted;
 };
 
 extern OS os;

@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include "os.h"
+#include "debug.h"
 
 #define GROUND_DDR DDRB
 #define GROUND_PIN PINB
@@ -16,6 +17,6 @@ void OS::initGround(){
 	clrb(GROUND_DDR, GROUND_3_PIN);
 }
 
-char OS::ground(){
-	return ~((GROUND_PIN & 0xF0) >> 4);
+unsigned char OS::ground(){
+	return (unsigned char)(((~(GROUND_PIN & 0xF0)) >> 4) & 0x0F);
 }

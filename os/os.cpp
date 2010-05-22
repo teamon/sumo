@@ -1,13 +1,26 @@
 #include "os.h"
+#include "debug.h"
 
 void OS::init(){
+	inverted = false;
 	initEngines();
 	initDist();
 	initGround();
 }
 
 void OS::run(){
-	//escape();
+	int pri = 0;
+	
+	if(!queue.empty()){
+		pri = queue.front()->pri;
+	}
+	
+	
+	if(pri < 3){
+		escape();
+	}
+	
+	
 	
 	if(!queue.empty()){
 		engine[0] = queue.front()->left;
@@ -24,7 +37,7 @@ void OS::run(){
 }
 
 void OS::escape(){
-	char grd = ground();
+	unsigned char grd = ground();
 	
 	if(grd == 0) return;
 	
@@ -38,19 +51,19 @@ void OS::escape(){
 			break;
 			
 		case 0x04 | 0x08: // back
-			queue.push(100, 100, 20);
+			queue.push(100, 100, 5, 3);
 			break;
 			
 		case 0x04: // back left
-			queue.push(100, 80, 20);
+			queue.push(100, 80, 5, 3);
 			break;
 		
 		case 0x08: // back right
-			queue.push(80, 100, 5);
+			queue.push(80, 100, 5, 3);
 			break;
 			
 		case 0x01 | 0x04: // left
-			// TODO: Escape when LEFt
+			// TODO: Escape when LEFT
 			break;
 		
 		case 0x02 | 0x08: // right
@@ -60,5 +73,5 @@ void OS::escape(){
 }
 
 void OS::invert(){
-	
+	queue.push(-50, -50, 5, 3);
 }
