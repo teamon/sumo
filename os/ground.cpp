@@ -18,5 +18,8 @@ void OS::initGround(){
 }
 
 unsigned char OS::ground(){
-	return (unsigned char)(((~(GROUND_PIN & 0xF0)) >> 4) & 0x0F);
+	unsigned char grd = (unsigned char)((~(GROUND_PIN >> 4)) & 0x0F);
+	if(inverted) return (grd << 2) | ((grd >> 2) & 0x03);
+	else return grd;
 }
+

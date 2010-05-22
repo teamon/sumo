@@ -21,13 +21,12 @@ void OS::run(){
 	}
 	
 	
-	
 	if(!queue.empty()){
 		engine[0] = queue.front()->left;
 		engine[1] = queue.front()->right;
 		queue.decrement(1);
 	} else {
-		// default values
+		// default values - searching
 		engine[0] = 0;
 		engine[1] = 0;
 	}
@@ -55,23 +54,23 @@ void OS::escape(){
 			break;
 			
 		case 0x04: // back left
-			queue.push(100, 80, 5, 3);
+			queue.push(100, 60, 5, 3);
 			break;
 		
 		case 0x08: // back right
-			queue.push(80, 100, 5, 3);
+			queue.push(60, 100, 5, 3);
 			break;
 			
 		case 0x01 | 0x04: // left
-			// TODO: Escape when LEFT
+			queue.push(100, -100, 4, 3);
 			break;
 		
 		case 0x02 | 0x08: // right
-			// TODO: Escape when RIGHT
+			queue.push(-100, 100, 4, 3);
 			break;
 	}
 }
 
 void OS::invert(){
-	queue.push(-50, -50, 5, 3);
+	inverted = !inverted;
 }

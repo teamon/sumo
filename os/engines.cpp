@@ -39,40 +39,63 @@ void OS::initEngines(){
 }
 
 void OS::runEngines(){
-	//dbg("engine[0]", engine[0]);
-	//dbg("engine[1]", engine[1]);
-	
 	//if(engine[0] == _prev_engine[0] && engine[1] == _prev_engine[1]) return; // TODO: check it
-	if(engine[0] * _prev_engine[0] < 0) ENGINE_0_OCR = 0;
-	if(engine[1] * _prev_engine[1] < 0) ENGINE_1_OCR = 0;
-	_delay_ms(50);
+	
+	//if(engine[0] * _prev_engine[0] < 0) ENGINE_0_OCR = 0;
+	//if(engine[1] * _prev_engine[1] < 0) ENGINE_1_OCR = 0;
+	//_delay_ms(50);
 			
 	int e0 = engine[0]*10;
 	int e1 = engine[1]*10;
-		
+
+	// this is fast!
+	
 	if(e0 == 0){
 		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
 		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
 	} else if(e0 > 0){
-		setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
-		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+		if(inverted){
+			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
+			setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+		} else {
+			setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
+			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+		}
+
 		ENGINE_0_OCR = _min(e0, ENGINE_MAX_POWER);
 	} else {
-		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
-		setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+		if(inverted){
+			setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
+			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+		} else {
+			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
+			setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+		}
+		
 		ENGINE_0_OCR = _min(-e0, ENGINE_MAX_POWER);
 	}
 	
-	if(e0 == 0){
+	if(e1 == 0){
 		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
 		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
 	} else if(e1 > 0){
-		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
-		setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+		if(inverted){
+			setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
+			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+		} else {
+			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
+			setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+		}
+		
 		ENGINE_1_OCR = _min(e1, ENGINE_MAX_POWER);
 	} else {
-		setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
-		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+		if(inverted){
+			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
+			setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+		} else {
+			setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
+			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+		}
 		ENGINE_1_OCR = _min(-e1, ENGINE_MAX_POWER);
 	}
 	
