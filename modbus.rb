@@ -8,7 +8,7 @@ module Modbus
     Thread.new do
       loop do
         line = @sp.readline
-        (line =~ /INFO/ ? STDOUT : STDERR).puts line
+        (line =~ /INFO|DBG/ ? STDOUT : STDERR).puts line
       end
     end
   end
@@ -33,17 +33,51 @@ module Modbus
   end
   alias_method :r, :right
   
-  def e0(power)
+  def engine0(power)
     write("E0", hex(power, 2))
   end
+  alias_method :e0, :engine0
   
-  def e1(power)
+  def engine1(power)
     write("E1", hex(power, 2))
   end
+  alias_method :e1, :engine1
   
-  def q(e0, e1, time)
+  def queue(e0, e1, time)
     write("A0", hex(e0, 2), hex(e1, 2), hex(time, 4))
   end
+  alias_method :q, :queue
+  
+  def invert
+    write("A1")
+  end
+  alias_method :i, :invert
+  
+  def send_state(state)
+    write("A2", hex(state, 2))
+  end
+  alias_method :ss, :send_state
+  
+  def auto_escape(state)
+    write("A3", hex(state, 2))
+  end
+  alias_method :ae, :auto_escape
+  
+  def auto_search(state)
+    write("A4", hex(state, 2))
+  end
+  alias_method :as, :auto_search
+  
+  def auto_search_speed(e0, e1)
+    write("A5", hex(e0, 2), hex(e1, 2))
+  end
+  alias_method :ass, :auto_search_speed
+  
+  def panic
+    auto_search(0)
+    auto_escape(0)
+  end
+  alias_method :p, :panic
     
   def write(fun, *args)
     cmd = "$" + fun + args.join.ljust(8, '0') + "\r\n"
@@ -60,7 +94,3 @@ module Modbus
     end.upcase
   end
 end
-
-
-
-

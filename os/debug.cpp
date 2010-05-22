@@ -12,6 +12,9 @@ Uart uart;
 
 char _buffer[50];
 
+char DEBUG_OPTS[5];
+
+
 ISR(USART_RXC_vect){
 	int c;
 	c = UDR;
@@ -84,15 +87,29 @@ void debug_send_state(){
 	
 	for(int i=0; i<6; i++)
 		uart << os.dist[i] << ':';
+	
+	for(int i=0; i<2; i++)
+		uart << os.engine[i] << ':';
 
 	uart << '\n';
 }
 
+void debug_init(){
+	// defaults
+	DEBUG_OPTS[DEBUG_DO_SEND_STATE] = 0;
+	DEBUG_OPTS[DEBUG_AUTO_ESCAPE] = 1;
+	DEBUG_OPTS[DEBUG_AUTO_SEARCH] = 0;
+	DEBUG_OPTS[DEBUG_AUTO_SEARCH_SPEED_0] = 15;
+	DEBUG_OPTS[DEBUG_AUTO_SEARCH_SPEED_1] = 80;
+}
+
 void debug_console(){
+	
 	if(uart.buf.size() >= PACKAGE_SIZE){
 		debug_parse_package();
 	}
-	//debug_send_state();
+	
+	if(DEBUG_OPTS[DEBUG_DO_SEND_STATE]) debug_send_state();
 }
 
 
@@ -105,7 +122,7 @@ void debug_parse_package(){
 	// pack[11] - should be \r
 	// pack[12] - should be \n
 	
-	// Example: $ E0  0 - engine 0, 70% power
+	// Example: $ E0 46 - engine 0, 70% power
 	
 	// Function	| Description			| Parameters		
 	// -------------------------------------------------------------
@@ -116,6 +133,21 @@ void debug_parse_package(){
 	// A0       | Push move to queue    | ## - Engine 0 power [char]
 	//          |                       | ## - Engine 1 power [char]
 	//          |                       | ## - Time [int]
+	// -------------------------------------------------------------
+	// A1		| Invert				| no params
+	// -------------------------------------------------------------
+	// A2		| Sending state on/off  | ## - state [char]
+	//			|						|	   0-off, 1-on
+	// -------------------------------------------------------------
+	// A3		| Auto escape on/off	| ## - state [char]
+	//			|						|	   0-off, 1-on
+	// -------------------------------------------------------------
+	// A4		| Auto search on/off	| ## - state [char]
+	//			|						|	   0-off, 1-on
+	// -------------------------------------------------------------
+	// A5		| Auto search speed		| ## - Engine 0 power [char]
+	//									| ## - Engine 1 power [char]
+	
 	
 	if(pack[0] == '$' && pack[11] == '\r' && pack[12] == '\n'){
 		int code = hex2num(pack[1])*0x10 + hex2num(pack[2]);
@@ -138,6 +170,45 @@ void debug_parse_package(){
 				int time = (int)arg(pack, 4, 4);
 				os.queue.push(e0, e1, time);
 				modbus_info("Queue push: e0=%d e1=%d time=%d", e0, e1, time);
+			}
+				break;
+				
+			case 0xA1:
+				os.invert();
+				modbus_info("System inverted. inverted=%d", os.inverted);
+				break;
+				
+			case 0xA2:
+			{
+				char state = (char)arg(pack, 0, 2);
+				DEBUG_OPTS[DEBUG_DO_SEND_STATE] = state;
+				modbus_info("Sending state turned %s", state ? "on" : "off");
+			}
+				break;
+				
+			case 0xA3: 
+			{
+				char state = (char)arg(pack, 0, 2);
+				DEBUG_OPTS[DEBUG_AUTO_ESCAPE] = state;
+				modbus_info("Auto escape turned %s", state ? "on" : "off");
+			}
+				break;
+				
+			case 0xA4: 
+			{
+				char state = (char)arg(pack, 0, 2);
+				DEBUG_OPTS[DEBUG_AUTO_SEARCH] = state;
+				modbus_info("Auto search turned %s", state ? "on" : "off");
+			}
+				break;
+				
+			case 0xA5:
+			{
+				char e0 = (char)arg(pack, 0, 2);
+				char e1 = (char)arg(pack, 2, 2);
+				DEBUG_OPTS[DEBUG_AUTO_SEARCH_SPEED_0] = e0;
+				DEBUG_OPTS[DEBUG_AUTO_SEARCH_SPEED_1] = e1;
+				modbus_info("Auto search speed set: %d %d", e0, e1);
 			}
 				break;
 				

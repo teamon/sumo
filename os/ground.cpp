@@ -1,6 +1,9 @@
 #include <avr/io.h>
 #include "os.h"
+
+#if DEBUG
 #include "debug.h"
+#endif
 
 #define GROUND_DDR DDRB
 #define GROUND_PIN PINB
@@ -18,8 +21,12 @@ void OS::initGround(){
 }
 
 unsigned char OS::ground(){
-	unsigned char grd = (unsigned char)((~(GROUND_PIN >> 4)) & 0x0F);
-	if(inverted) return (grd << 2) | ((grd >> 2) & 0x03);
-	else return grd;
+	unsigned char grd = (unsigned char)((~(GROUND_PIN >> 4)) & 0x0F); // 0000ABCD
+	if(inverted) {
+		return (((grd & 0x08) >> 3) | ((grd & 0x04) >> 1) | ((grd & 0x02) << 1) | ((grd & 0x01) << 3)) & 0x0F;
+	} else {
+		return grd;
+	}
+		
+	//return ((grd << 2) | (grd >> 2)) & 0x0F;
 }
-

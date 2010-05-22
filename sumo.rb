@@ -9,7 +9,7 @@ while line = readline
   fun = args.shift
   begin
     send(fun, *args.map{|e| e.to_i})
-  rescue
-    puts "Function not found"
+  rescue Exception => e
+    puts e
   end
 end

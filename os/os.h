@@ -1,6 +1,8 @@
 #ifndef _OS_H_
 #define _OS_H_
 
+#define DEBUG 1
+
 #include "queue.h"
 
 // macros

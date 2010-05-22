@@ -1,7 +1,10 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "os.h"
+
+#if DEBUG
 #include "debug.h"
+#endif
 
 #define ENGINE_DDR DDRD
 #define ENGINE_PORT PORTD
@@ -44,61 +47,69 @@ void OS::runEngines(){
 	//if(engine[0] * _prev_engine[0] < 0) ENGINE_0_OCR = 0;
 	//if(engine[1] * _prev_engine[1] < 0) ENGINE_1_OCR = 0;
 	//_delay_ms(50);
-			
-	int e0 = engine[0]*10;
-	int e1 = engine[1]*10;
 
-	// this is fast!
+	int e0,e1;
 	
-	if(e0 == 0){
-		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
-		clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
-	} else if(e0 > 0){
-		if(inverted){
+	if(inverted){
+		e0 = engine[1]*10;
+		e1 = engine[0]*10;
+		
+		if(e0 == 0){
+			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
+			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+		} else if(e0 > 0){
 			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
 			setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+			ENGINE_0_OCR = _min(e0, ENGINE_MAX_POWER);
 		} else {
 			setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
 			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+			ENGINE_0_OCR = _min(-e0, ENGINE_MAX_POWER);
 		}
-
-		ENGINE_0_OCR = _min(e0, ENGINE_MAX_POWER);
+		
+		if(e1 == 0){
+			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
+			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+		} else if(e1 > 0){
+			setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
+			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+			ENGINE_1_OCR = _min(e1, ENGINE_MAX_POWER);
+		} else {
+			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
+			setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+			ENGINE_1_OCR = _min(-e1, ENGINE_MAX_POWER);
+		}
 	} else {
-		if(inverted){
+		e0 = engine[0]*10;
+		e1 = engine[1]*10;
+		
+		if(e0 == 0){
+			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
+			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+		} else if(e0 > 0){
 			setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
 			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+			ENGINE_0_OCR = _min(e0, ENGINE_MAX_POWER);
 		} else {
 			clrb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_0);
 			setb(ENGINE_DIR_PORT, ENGINE_0_DIR_PIN_1);
+			ENGINE_0_OCR = _min(-e0, ENGINE_MAX_POWER);
 		}
 		
-		ENGINE_0_OCR = _min(-e0, ENGINE_MAX_POWER);
-	}
-	
-	if(e1 == 0){
-		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
-		clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
-	} else if(e1 > 0){
-		if(inverted){
-			setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
+		if(e1 == 0){
+			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
 			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
-		} else {
+		} else if(e1 > 0){
 			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
 			setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
-		}
-		
-		ENGINE_1_OCR = _min(e1, ENGINE_MAX_POWER);
-	} else {
-		if(inverted){
-			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
-			setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+			ENGINE_1_OCR = _min(e1, ENGINE_MAX_POWER);
 		} else {
 			setb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_0);
 			clrb(ENGINE_DIR_PORT, ENGINE_1_DIR_PIN_1);
+			ENGINE_1_OCR = _min(-e1, ENGINE_MAX_POWER);
 		}
-		ENGINE_1_OCR = _min(-e1, ENGINE_MAX_POWER);
 	}
-	
+
 	_prev_engine[0] = engine[0];
 	_prev_engine[1] = engine[1];
 }
